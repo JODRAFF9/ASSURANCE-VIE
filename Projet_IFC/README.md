@@ -20,6 +20,7 @@ d'**Indemnités de Fin de Carrière (IFC / IFC+)**, évalué pour l'entreprise
 | `simulateur_IFC_SENIA.xlsx` | Simulateur Excel avec formules vivantes ; la base du personnel est la feuille `BD` |
 | `Questionnaire_enquete_IFC.docx` | Questionnaire d'enquête (volets A-D) ayant permis de recueillir les produits et de constituer la base |
 | `Presentation_Projet_IFC.pdf` | Présentation Beamer 16:9 du projet (source `.tex`) |
+| `Aide_memoire_soutenance.pdf` | Aide-mémoire de soutenance : fil conducteur, lexique, questions probables (source `.md`) |
 
 ## Scripts de construction
 
