@@ -1,0 +1,620 @@
+---
+documentclass: article
+fontsize: 12pt
+output:
+  pdf_document:
+    toc: no
+    fig_caption: yes
+    number_sections: no
+    keep_tex: no
+header-includes: |
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage[french]{babel}
+  \usepackage{lmodern} % Police moderne (préférée à mathptmx pour le français)
+  \usepackage{microtype} % Améliore la typographie générale
+  % 2. GÉOMÉTRIE ET MISE EN PAGE
+  \usepackage[margin=1in, a4paper, hmargin=2.5cm, vmargin=1.5cm]{geometry}
+  \usepackage{fancyhdr}
+  \usepackage{setspace}
+  \usepackage{parskip}
+  \usepackage{pdfpages}
+  \usepackage[pages=all]{background}
+  \setlength{\headheight}{14.5pt}
+  % 3. MATHÉMATIQUES
+  \usepackage{amsmath, amssymb, amsfonts, amsthm}
+  \usepackage{MnSymbol} % Attention : peut entrer en conflit avec amssymb, à tester
+  \usepackage{calc}
+  % 4. TABLEAUX ET FIGURES
+  \usepackage{booktabs, array, longtable, tabularx, tabu, multirow, makecell}
+  \usepackage{colortbl}
+  \usepackage{graphicx}
+  \usepackage{float}
+  % 5. COULEURS
+  \usepackage[dvipsnames, svgnames, x11names, table]{xcolor} 
+  \definecolor{deepblue}{RGB}{10, 60, 90}
+  \definecolor{MidnightBlue}{RGB}{25, 25, 112}
+  \definecolor{RoyalBlue}{RGB}{65, 105, 225}
+  \definecolor{darkblue}{HTML}{1F3864}
+  \definecolor{midblue}{HTML}{2E5FA3}
+  \definecolor{lightblue}{HTML}{D6E4F0}
+  \definecolor{gre}{RGB}{101, 191, 127}
+  \definecolor{gree}{RGB}{7, 135, 44}
+  \definecolor{accent}{HTML}{C0392B}
+  \definecolor{greybg}{HTML}{F2F4F7}
+  \definecolor{rowgrey}{HTML}{EAF0F6}
+  \definecolor{bordercolor}{HTML}{B0C4DE}
+  \definecolor{textgrey}{HTML}{444444}
+  \definecolor{formulabg}{HTML}{EEF4FB}
+  % 6. GRAPHISME ET DIAGRAMMES (TIKZ)
+  \usepackage{tikz}
+  \usetikzlibrary{shapes.geometric, arrows, calc}
+  % 7. STRUCTURE ET BLOCS PERSONNALISÉS
+  \usepackage{titlesec}
+  \usepackage{tocloft}
+  \usepackage[most]{tcolorbox}
+  \usepackage{mdframed}
+  \usepackage{enumitem}
+  \usepackage{fncychap} % Style Conny pour les chapitres
+  % 8. HYPERLIENS ET RÉFÉRENCES
+  \usepackage{hyperref}
+  \hypersetup{colorlinks=true, linkcolor=midblue, citecolor=RoyalBlue}
+  \usepackage{pifont}
+  % 9. ENVIRONNEMENTS SPÉCIAUX (MDFRAMED)
+  \newmdenv[
+    backgroundcolor=formulabg,
+    linecolor=midblue,
+    linewidth=1.5pt,
+    leftline=true, rightline=false, topline=false, bottomline=false,
+    innerleftmargin=12pt, innerrightmargin=12pt,
+    innertopmargin=8pt, innerbottommargin=8pt,
+  ]{formule}
+  \newmdenv[
+    backgroundcolor=lightblue,
+    linecolor=midblue,
+    linewidth=2pt,
+    leftline=true, rightline=false, topline=false, bottomline=false,
+    innerleftmargin=12pt, innerrightmargin=12pt,
+    innertopmargin=8pt, innerbottommargin=8pt,
+  ]{infobox}
+  % 10. COMMANDES ACTUARIELLES ET UTILITAIRES
+  \newcommand{\tpx}[2]{{}_{#1}p_{#2}}
+  \newcommand{\ax}[2]{\ddot{a}_{#2,\,\overline{#1}|}}
+  \newcommand{\qx}[1]{q_{#1}}
+  %\newcommand\thesection{\arabic{section}}
+  \newcommand{\rowA}{\rowcolor{rowgrey}}
+  \newcommand{\rowB}{\rowcolor{white}}
+  \newcommand{\CRD}{\mathrm{CRD}} \newcommand{\PP}{\mathrm{PP}}
+  \newcommand{\PA}{\mathrm{PA}}  \newcommand{\PI}{\mathrm{PI}}
+  \newcommand{\PC}{\mathrm{PC}}  \newcommand{\PM}{\mathrm{PM}}
+  \setcounter{secnumdepth}{4}
+  \renewcommand{\arraystretch}{1.4}
+---
+
+
+```{=tex}
+	%%%%%%%%%%%%%%%%Pied de page et en-tête%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  % Dimensions
+  \setlength{\headheight}{18pt}
+  \setlength{\headsep}{20pt}
+  \setlength{\footskip}{25pt}
+  
+  % Lignes colorées
+  \renewcommand{\headrulewidth}{1pt}
+  \let\oldheadrule\headrule
+  \renewcommand{\headrule}{\color{MidnightBlue}\oldheadrule}
+  
+  \renewcommand{\footrulewidth}{1pt}
+  \let\oldfootrule\footrule
+  \renewcommand{\footrule}{\color{MidnightBlue}\oldfootrule}
+  
+  % Style
+  \pagestyle{fancy}
+  
+  \lhead{\scriptsize Méthodes Actuarielles}
+  \rhead{\scriptsize 2025-2026}
+  \lfoot{\scriptsize Sié Rachid Traoré}
+  \rfoot{\scriptsize ISE3-ENSAE 2026}
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\begin{tikzpicture}[remember picture, overlay]
+    % 1. Fond et Bordures existantes
+    \fill[deepblue!3] (current page.south west) rectangle (current page.north east);
+    
+    \draw [deepblue, line width=2pt] ([shift={(10pt,-10pt)}]current page.north west) rectangle ([shift={(-10pt,10pt)}]current page.south east);
+    
+    \draw [orange!60!black, line width=0.5pt] ([shift={(12.5pt,-12.5pt)}]current page.north west) rectangle ([shift={(-12.5pt,12.5pt)}]current page.south east);
+    
+    \draw [deepblue!60, line width=0.8pt] ([shift={(15pt,-15pt)}]current page.north west) rectangle ([shift={(-15pt,15pt)}]current page.south east);
+
+    % 2. FILIGRANE CENTRAL (L'ajout "Plus")
+    % Remplace 'ENSAE-logo' par le nom de ton fichier image si tu veux le logo en fond
+    \node[opacity=0.05] at (current page.center) {\includegraphics[width=0.6\paperwidth]{ressource/image/ENSAE-Dakar-logo.png}};
+
+    % 3. Motifs de Coins "Diamants"
+    \foreach \anchor/\xshift/\yshift in {north west/25pt/-25pt, north east/-25pt/-25pt, south west/25pt/25pt, south east/-25pt/25pt} {
+        \draw[deepblue!40, fill=deepblue!10, rotate around={45:([shift={(\xshift,\yshift)}]current page.\anchor)}] 
+            ([shift={(\xshift,\yshift)}]current page.\anchor) rectangle ++(10pt,10pt);
+    }
+
+    % 4. Bandeau de bas de page amélioré
+    \draw[deepblue!80, line width=1.5pt] ([shift={(100pt,40pt)}]current page.south west) -- ([shift={(-100pt,40pt)}]current page.south east);
+    \node[draw=deepblue, fill=white, star, star points=5, inner sep=2pt, line width=1pt] 
+        at ([yshift=40pt]current page.south) {};
+
+\end{tikzpicture}
+
+\thispagestyle{empty}
+
+\begin{center}
+    \vspace*{-1.5cm} % Remonte un peu pour le A4
+    \textsc{\Large République du Sénégal}\\
+    \small{Un Peuple - Un But - Une Foi}\\[0.4cm]
+    \includegraphics[width=60pt]{ressource/image/Republique du Senegal.png}\\[0.8cm]
+
+    \textbf{\large Agence Nationale de la Statistique et de la Démographie (ANSD)}\\
+    \includegraphics[width=60pt]{ressource/image/ANSD.jpg}\\[0.6cm]
+    
+    \textbf{\large École Nationale de la Statistique et de l'Analyse Économique Pierre Ndiaye (ENSAE)}\\
+    \includegraphics[width=60pt]{ressource/image/ENSAE-Dakar-logo.png}\\[2cm]
+
+    % BLOC TITRE STYLE - Plus large pour le A4
+    \begin{tikzpicture}
+        \node[fill=MidnightBlue, text=white, inner sep=15pt, rounded corners=3pt, align=center, font=\Large\bfseries, text width=0.8\textwidth] (titre) {
+            MÉTHODES ACTUARIELLES 
+        };
+        \draw[MidnightBlue, line width=2.5pt] ([yshift=-8pt]titre.south west) -- ([yshift=-8pt]titre.south east);
+    \end{tikzpicture}
+    
+    \vspace{1.5cm}
+    {\itshape\Large « Enquête auprès des institutions d'assurance --- Note technique du produit\\ le plus commercialisé : Indemnités de Fin de Carrière (IFC / IFC+) »}\\[2.5cm]
+
+    % ZONE AUTEURS - Mieux espacée
+    \begin{minipage}{0.48\textwidth}
+        \begin{flushleft} \large
+            \textcolor{MidnightBlue}{\textit{Rédigé par :}}\\
+            \textbf{\Large Sié Rachid Traoré}\\
+            \textsc{\small Ingénieur Statisticien Économiste en fin de formation}
+        \end{flushleft}
+    \end{minipage}
+    \hfill % Utilise tout l'espace horizontal du A4
+    \begin{minipage}{0.48\textwidth}
+        \begin{flushright} \large
+            \textcolor{MidnightBlue}{\textit{Sous la supervision de :}}\\
+            \textbf{\Large M. Dione}\\
+            \textsc{\small Actuaire}
+        \end{flushright}
+    \end{minipage}
+
+    \vfill % Pousse la date tout en bas
+    \begin{tikzpicture}
+        \draw[MidnightBlue!30, line width=1pt] (-2,0) -- (2,0);
+    \end{tikzpicture}\\[0.3cm]
+    {\Large \textbf{Juillet 2026}}
+\end{center}
+  
+
+
+  \backgroundsetup{
+    scale=1,
+    color=black,
+    opacity=1,
+    angle=0,
+    contents={%
+      \begin{tikzpicture}[remember picture, overlay]
+        % 1. Équerres d'angles "Double Ligne" (Plus moderne)
+        \foreach \anchor/\rot in {north west/0, north east/-90, south east/-180, south west/90} {
+          \begin{scope}[shift={([shift={(15pt,-15pt)}]current page.\anchor)}, rotate=\rot]
+            \draw[deepblue!60, line width=1.2pt] (0,-25pt) -- (0,0) -- (25pt,0);
+            \draw[orange!60!black, line width=0.4pt] (3pt,-22pt) -- (3pt,3pt) -- (22pt,3pt);
+          \end{scope}
+        }
+        % 2. Marge technique avec graduation (Style règle d'ingénieur)
+        \draw[deepblue!20, line width=0.5pt] 
+            ([xshift=35pt, yshift=-60pt]current page.north west) -- ([xshift=35pt, yshift=60pt]current page.south west);
+        \foreach \y in {0,20,...,400} {
+            \draw[deepblue!20] ([xshift=35pt, yshift=-\y pt-100pt]current page.north west) -- ++(-3pt,0);
+        }
+        % 3. Symbole Statistique : Courbe de Gumbel (GEV) mathématique
+        % Tracée proprement en haut à droite
+        % --- Symbole Actuariat : Rente Viagère et Probabilité ---
+        \begin{scope}[shift={([shift={(-80pt,-50pt)}]current page.north east)}, scale=1.2, opacity=0.4, deepblue]
+            % Le symbole "a deux points x" (Rente due)
+            \node[scale=2.5, font=\boldmath] (ax) at (0,0) {$\ddot{a}_x$};
+            % Un arc de cercle stylisé symbolisant la ligne de vie ou l'espérance
+            \draw[line width=1pt, ->, >=stealth] (-0.8,-0.5) arc (200:340:1.2);
+            % Petite formule discrète de la somme actualisée
+            \node[scale=0.5, anchor=north] at (0,-0.7) {$\sum_{k=0}^{\infty} v^k \, {}_kp_x$};
+            % Texte d'identification
+            \node[scale=0.6, rotate=90, anchor=south] at (1.2,0) {Life Contingencies};
+        \end{scope}
+        % 4. Rappel discret de l'institution en filigrane vertical
+        \node[deepblue!15, rotate=90, anchor=south] at ([xshift=25pt]current page.west) 
+            {\textsc{\scriptsize ENSAE Pierre Ndiaye - Ingénieur Statisticien Économiste - Promo 2026}};;
+      \end{tikzpicture}%
+    }
+  }
+
+  \newpage
+  \setcounter{tocdepth}{2}
+  \renewcommand{\contentsname}{\textcolor{MidnightBlue}{Sommaire}}
+  \textcolor{black}{\tableofcontents}
+
+  \renewcommand{\listtablename}{\textcolor{MidnightBlue}{Liste des tableaux}}
+  {\color{black}\listoftables}
+
+  %\renewcommand{\listfigurename}{\textcolor{MidnightBlue}{Liste des graphiques}}
+  %{\color{black}\listoffigures}
+```
+
+
+```{r setup, include=FALSE,comment=""}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+options(OutDec = ",") # pour des sorties decimales avec , et non .
+```
+
+
+\newpage
+
+\section{Contexte et démarche de l'enquête}
+
+\subsection{Objet du projet}
+
+Le présent document constitue la note technique du \textbf{produit d'assurance vie le plus commercialisé} sur la place de Dakar, identifié à l'issue d'une enquête menée auprès des institutions d'assurance vie. Il est accompagné de deux livrables complémentaires :
+
+\begin{itemize}[label=\ding{224}]
+  \item le \textbf{questionnaire d'enquête} (\texttt{Questionnaire\_enquete\_IFC.docx}) ayant permis de recueillir les produits commercialisés et de constituer la base de données ;
+  \item le \textbf{simulateur Excel} (\texttt{simulateur\_IFC\_SENIA.xlsx}) qui met en œuvre la tarification du produit sur la base du personnel d'une entreprise sénégalaise.
+\end{itemize}
+
+\begin{infobox}
+\textbf{Avertissement méthodologique.} L'enquête de terrain n'ayant pas pu être conduite, les réponses au questionnaire ont été \textbf{simulées de manière réaliste} : huit compagnies vie fictives de la place de Dakar sont supposées avoir répondu, et la base du personnel de l'entreprise souscriptrice (SENIA S.A., 50 salariés) a été générée à partir de la fiche de collecte du volet D du questionnaire. La démarche, les instruments de collecte et les traitements sont en revanche ceux d'une enquête réelle.
+\end{infobox}
+
+\subsection{Méthodologie de l'enquête}
+
+Le questionnaire comporte quatre volets : (A) identification de l'institution ; (B) portefeuille de produits vie et classement des produits par primes émises ; (C) caractéristiques techniques du produit le plus commercialisé ; (D) fiche de collecte des données du personnel de l'entreprise souscriptrice. Huit compagnies d'assurance vie agréées au Sénégal (branche vie, zone CIMA) ont été interrogées, la personne ressource étant l'actuaire ou le directeur technique.
+
+\subsection{Résultat : le produit le plus commercialisé}
+
+Le dépouillement (simulé) du volet B donne le classement suivant :
+
+\begin{table}[H]
+\centering
+\caption{Produits vie cités dans le top 3 des primes émises (8 compagnies)}
+\begin{tabular}{lcc}
+\toprule
+\rowcolor{lightblue} \textbf{Produit} & \textbf{Cité n\textsuperscript{o}1} & \textbf{Part moyenne des primes vie} \\
+\midrule
+Indemnités de Fin de Carrière (IFC / IFC+) & 5/8 & 34\,\% \\
+Assurance décès emprunteur & 2/8 & 22\,\% \\
+Épargne / capitalisation & 1/8 & 18\,\% \\
+Temporaire décès individuelle & 0/8 & 11\,\% \\
+Retraite complémentaire & 0/8 & 9\,\% \\
+Autres (rente éducation, mixte, \ldots) & 0/8 & 6\,\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Le contrat d'\textbf{Indemnités de Fin de Carrière (IFC)}, assorti de son extension décès \textbf{IFC Plus}, ressort comme le produit le plus commercialisé. Ce résultat est cohérent avec la structure du marché : la Convention Collective Nationale Interprofessionnelle (CCNI) du Sénégal impose à \emph{toutes} les entreprises le versement d'une indemnité de départ à la retraite, et le référentiel comptable (SYSCOHADA révisé, norme IAS 19 pour les groupes) impose la comptabilisation de ce passif social ; l'externalisation auprès d'un assureur vie est la réponse naturelle des entreprises. La présente note technique porte donc sur ce produit.
+
+\section{Garanties}
+
+\subsection{Nature des garanties}
+
+\textbf{Volet IFC (épargne collective de passif social).} L'assureur constitue, gère et revalorise un fonds destiné au paiement des \textbf{indemnités de fin de carrière} dues par l'employeur à ses salariés lors du départ à la retraite (ou d'un licenciement), conformément à la CCNI du Sénégal. Le contrat comprend l'évaluation actuarielle du passif social (engagement global, dette actuarielle, charge normale, passif de l'indemnité de licenciement) et le règlement des prestations au fur et à mesure des départs.
+
+\textbf{Volet IFC Plus (prévoyance décès).} En cas de décès d'un salarié en activité, l'assureur prend en charge l'\textbf{indemnité de décès} qui incombe à l'employeur au titre de la convention collective (indemnité de licenciement acquise majorée de l'indemnité de fin de carrière calculée sur le demi-salaire), quel que soit le nombre de décès survenant dans l'année.
+
+\subsection{Personnes assurées}
+
+L'ensemble du personnel salarié de l'entreprise souscriptrice, présent à la date d'évaluation et déclaré dans la base de données (fiche de collecte du volet D). L'adhésion est collective et obligatoire ; aucune sélection médicale individuelle n'est opérée, la mutualisation étant assurée par le groupe.
+
+\subsection{Cadre juridique et réglementaire}
+
+\begin{itemize}[label=\ding{224}]
+  \item \textbf{CCNI du Sénégal} : barème des indemnités de licenciement et de départ à la retraite en pourcentage du salaire global mensuel moyen, par année de présence ;
+  \item \textbf{Code du travail sénégalais} et régime IPRES : âge de départ à la retraite fixé à 60 ans ;
+  \item \textbf{Code CIMA} : bases techniques réglementaires (table de mortalité, plafonnement du taux technique, art. 338) et règles de provisionnement ;
+  \item \textbf{SYSCOHADA révisé / IAS 19} : obligation de comptabilisation des avantages postérieurs à l'emploi.
+\end{itemize}
+
+\section{Base de tarif}
+
+\subsection{Table de mortalité de référence}
+
+La probabilité de survie jusqu'à la retraite et la probabilité de décès en activité sont lues dans la \textbf{table réglementaire CIMA H} (art. 338 du code CIMA), utilisée pour les assurances en cas de vie et de décès dans la zone CIMA. La table figure dans la feuille \texttt{Table\_CIMA\_H} du simulateur, avec les nombres de commutation $D_x$, $N_x$, $C_x$, $M_x$ recalculés au taux technique.
+
+\subsection{Taux technique}
+
+Le taux d'actualisation retenu est $i = 3{,}5\,\%$, taux technique maximal autorisé par la réglementation CIMA. Il s'agit d'un minimum de revalorisation : le fonds IFC participe aux bénéfices financiers (85\,\%) et techniques (90\,\%) réalisés par l'assureur.
+
+\subsection{Paramètres techniques généraux}
+
+\begin{table}[H]
+\centering
+\caption{Hypothèses techniques retenues (volet C du questionnaire)}
+\begin{tabular}{lc}
+\toprule
+\rowcolor{lightblue} \textbf{Paramètre} & \textbf{Valeur} \\
+\midrule
+Date d'évaluation & 31/12/2025 \\
+Âge de départ à la retraite (IPRES) & 60 ans \\
+Taux technique $i$ & 3,5\,\% \\
+Taux d'évolution des salaires $\tau_s$ & 2,0\,\% \\
+Taux de turn-over $\tau_r$ & 2,0\,\% \\
+Taux annuel de licenciement $\tau_\ell$ & 1,0\,\% \\
+Frais de gestion IFC & 2,0\,\% \\
+Frais de gestion IFC+ ($g$) & 2,0\,\% \\
+Table de mortalité & CIMA H \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Barème conventionnel des droits}
+
+Le droit à indemnité, exprimé en pourcentage du \textbf{salaire global mensuel moyen}, s'accroît avec l'ancienneté $a$ selon le barème CCNI :
+
+\begin{table}[H]
+\centering
+\caption{Barème des droits IFC (CCNI)}
+\begin{tabular}{lc}
+\toprule
+\rowcolor{lightblue} \textbf{Tranche d'ancienneté} & \textbf{Droit par année de service} \\
+\midrule
+Années 1 à 5 & 20\,\% \\
+Années 6 à 10 & 30\,\% \\
+Années 11 à 15 & 40\,\% \\
+Années 16 à 20 & 50\,\% \\
+Au-delà de 20 ans & 60\,\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Le cumul $B(a)$ est obtenu par sommation ; pour une ancienneté non entière, une interpolation linéaire est appliquée : $B(a) = B(\lfloor a \rfloor) + (a - \lfloor a \rfloor)\, b(\lfloor a \rfloor + 1)$, où $b(\cdot)$ désigne le droit annuel de la tranche.
+
+\section{Méthodologie d'évaluation}
+
+\subsection{Sigles et notations}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ll}
+\toprule
+\rowcolor{lightblue} \textbf{Notation} & \textbf{Définition} \\
+\midrule
+$SA$ & salaire annuel brut à la date d'évaluation \\
+$x$ & âge (entier) du salarié à la date d'évaluation \\
+$a$ & ancienneté à la date d'évaluation (années, fraction comprise) \\
+$n$ & durée résiduelle d'activité jusqu'à 60 ans \\
+$N_r = a + n$ & ancienneté au terme (au départ à la retraite) \\
+$l_x$ & nombre de survivants d'âge $x$ (table CIMA H) \\
+$v = (1+i)^{-1}$ & facteur d'actualisation au taux technique \\
+$B(\cdot)$ & barème cumulé des droits CCNI \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Méthode prospective}
+
+La méthode utilisée est la \textbf{méthode prospective} (unités de crédit projetées) : les droits sont projetés au terme (salaire final, ancienneté au terme), pondérés par la probabilité d'être en vie et présent dans l'effectif au moment du départ, actualisés à la date d'évaluation, puis répartis au prorata de l'ancienneté acquise. Cette méthode a l'avantage de niveler l'engagement sur la durée totale probable de vie active du salarié dans l'entreprise.
+
+\subsubsection{Salaire final et droits au terme}
+
+Le salaire mensuel projeté au départ à la retraite vaut :
+
+\begin{formule}
+$$ S_f = \frac{SA}{12}\,(1+\tau_s)^{\max(60 - x,\, 0)} $$
+\end{formule}
+
+et les droits IFC au terme :
+
+\begin{formule}
+$$ \text{Droits} = B(N_r) \times S_f $$
+\end{formule}
+
+\subsubsection{Valeur actuelle probable des prestations futures}
+
+La prestation, versée au départ à la retraite (positionné par convention au milieu de l'exercice de départ, d'où le décalage d'un demi-exercice), est probabilisée par la survie et la présence dans l'effectif :
+
+\begin{formule}
+$$ \mathrm{VAP} = \text{Droits} \times \underbrace{\frac{l_{60}}{l_x}}_{\text{probabilité vie}} \times \underbrace{p_{\text{prés}}}_{=1 \text{ si présent}} \times \underbrace{v^{\,n + 1/2}}_{\text{actualisation}} $$
+\end{formule}
+
+L'\textbf{engagement global} de l'entreprise est la somme des VAP individuelles : il intègre les engagements relatifs aux exercices antérieurs, à l'exercice en cours et aux exercices futurs.
+
+\subsubsection{Dette actuarielle et charge normale}
+
+\begin{formule}
+$$ \mathrm{DA} = \mathrm{VAP} \times \frac{a}{N_r} \qquad ; \qquad \mathrm{CN} = \frac{\mathrm{VAP}}{N_r} $$
+\end{formule}
+
+La \textbf{dette actuarielle} est la part de l'engagement correspondant aux droits déjà acquis (prorata d'ancienneté) par le personnel présent à la date d'évaluation ; la \textbf{charge normale} est la part de l'engagement relative à l'exercice en cours.
+
+\subsubsection{Passif de l'indemnité de licenciement}
+
+L'indemnité de licenciement acquise à la date d'évaluation vaut $\mathrm{IL} = B(\lfloor a \rfloor) \times SA/12$. Le passif correspondant, qui capitalise la probabilité annuelle de licenciement $\tau_\ell$ sur la durée résiduelle $n$, s'écrit :
+
+\begin{formule}
+$$ \mathrm{Passif\ IL} = \mathrm{IL} \times \tau_\ell \times \frac{1 - u^{\,n}}{1-u}
+\qquad \text{avec} \qquad u = \frac{1-\tau_r}{1+i} $$
+\end{formule}
+
+\subsubsection{Tarification du volet IFC Plus}
+
+Le capital décès garanti pour chaque salarié est l'indemnité conventionnelle totale :
+
+\begin{formule}
+$$ C = \underbrace{B(\lfloor a \rfloor)\,\frac{SA}{12}}_{\text{indemnité de licenciement}} \;+\; \underbrace{B(\lfloor a \rfloor)\,\frac{SA}{24}}_{\text{indemnité de fin de carrière (demi-salaire)}} $$
+\end{formule}
+
+La prime pure annuelle du groupe est la somme des capitaux pondérés par la probabilité annuelle de décès $q_x = (l_x - l_{x+1})/l_x$, et la prime commerciale intègre les chargements de gestion $g$ :
+
+\begin{formule}
+$$ \PP_{\mathrm{IFC+}} = \sum_{j=1}^{N} C_j \, q_{x_j} \qquad ; \qquad
+\PC_{\mathrm{IFC+}} = \frac{\PP_{\mathrm{IFC+}}}{1-g} $$
+\end{formule}
+
+\section{Application : évaluation du passif social de SENIA S.A.}
+
+\subsection{Base de données simulée}
+
+L'entreprise souscriptrice retenue est \textbf{SENIA S.A.} (Sénégalaise des Industries Alimentaires), société installée dans la zone industrielle de Dakar. Sa base de personnel — 50 salariés répartis en cinq catégories professionnelles (cadres dirigeants, cadres, agents de maîtrise, employés, ouvriers) — a été simulée à partir de la fiche de collecte du volet D du questionnaire et figure \emph{in extenso} dans la feuille \texttt{BD} du simulateur.
+
+\begin{table}[H]
+\centering
+\caption{Statistiques du groupe assuré au 31/12/2025}
+\begin{tabular}{lr}
+\toprule
+\rowcolor{lightblue} \textbf{Indicateur} & \textbf{Valeur} \\
+\midrule
+Effectif & 50 \\
+Masse salariale annuelle brute & 344\,386\,800 FCFA \\
+Âge moyen du groupe & 42,2 ans \\
+Ancienneté moyenne & 10,2 ans \\
+Durée résiduelle moyenne d'activité & 17,8 ans \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Résultats de l'évaluation IFC}
+
+\begin{table}[H]
+\centering
+\caption{Résultats IFC au 31/12/2025 (FCFA)}
+\begin{tabular}{lr}
+\toprule
+\rowcolor{lightblue} \textbf{Rubrique} & \textbf{Montant} \\
+\midrule
+Engagement global (VP des prestations futures) & 230\,047\,411 \\
+Dette actuarielle & 111\,103\,527 \\
+Charge normale de l'exercice & 8\,223\,109 \\
+Passif de l'indemnité de licenciement & 7\,831\,464 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+L'\textbf{engagement global} de SENIA S.A. au 31/12/2025 s'élève à \textbf{230\,047\,411 FCFA}. La \textbf{dette actuarielle} — droits déjà acquis par le personnel présent — s'élève à \textbf{111\,103\,527 FCFA}, soit environ 48\,\% de l'engagement, proportion cohérente avec le rapport entre ancienneté acquise (10,2 ans) et ancienneté au terme (28,1 ans en moyenne). La \textbf{charge normale} de l'exercice s'élève à \textbf{8\,223\,109 FCFA} et le \textbf{passif de l'indemnité de licenciement} à \textbf{7\,831\,464 FCFA}.
+
+\subsection{Modalités de financement}
+
+\begin{table}[H]
+\centering
+\caption{Options de financement proposées à l'entreprise (FCFA)}
+\begin{tabular}{p{8.6cm}r}
+\toprule
+\rowcolor{lightblue} \textbf{Option} & \textbf{Montant} \\
+\midrule
+\textbf{Option 1} — Prime unique à la souscription (engagement global + passif IL) & 237\,878\,875 \\
+\textbf{Option 2} — Prime initiale égale à la dette actuarielle\ldots & 111\,103\,527 \\
+\hspace{0.5cm}\ldots puis charge normale réglée annuellement & 8\,223\,109 \\
+\textbf{Option 3} — Amortissement de la dette actuarielle sur 5 ans & 22\,220\,705 / an \\
+\hspace{0.5cm}Prime annuelle sur 5 ans (amortissement + charge normale) & 30\,443\,814 \\
+\hspace{0.5cm}Taux de prime uniforme correspondant (\% masse salariale) & 8,84\,\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{itemize}[label=\ding{224}]
+  \item l'\textbf{option 1} finance la totalité des engagements dès la souscription ;
+  \item l'\textbf{option 2} régularise immédiatement les droits acquis, le financement des droits futurs étant lissé par la charge normale ; une prime d'ajustement est déterminée lors des études périodiques (au minimum triennales) par différence entre la dette actuarielle nette actualisée et le montant du fonds ;
+  \item l'\textbf{option 3} étale la dette actuarielle sur cinq exercices, ce qui permet de déduire fiscalement l'intégralité de la prime comme charge de l'exercice.
+\end{itemize}
+
+\subsection{Résultats du volet IFC Plus}
+
+\begin{table}[H]
+\centering
+\caption{Tarification IFC+ pour le premier exercice (FCFA)}
+\begin{tabular}{lr}
+\toprule
+\rowcolor{lightblue} \textbf{Rubrique} & \textbf{Montant} \\
+\midrule
+Nombre de salariés couverts & 50 \\
+Capitaux garantis (indemnités décès CCNI) & 161\,949\,480 \\
+Prime pure annuelle & 1\,179\,287 \\
+Prime commerciale annuelle & 1\,203\,354 \\
+Taux de prime sur les capitaux garantis & 0,74\,\% \\
+Taux de prime sur la masse salariale & 0,35\,\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+La prime est recalculée chaque année en fonction de la masse salariale, de la pyramide des âges, des capitaux garantis et de la sinistralité observée sur le groupe. Il n'y a pas de limitation du nombre de décès pris en charge dans l'année.
+
+\subsection{Sensibilité des résultats}
+
+\begin{table}[H]
+\centering
+\caption{Sensibilité de l'évaluation aux hypothèses (FCFA)}
+\begin{tabular}{lrrr}
+\toprule
+\rowcolor{lightblue} \textbf{Scénario} & \textbf{Engagement global} & \textbf{Dette actuarielle} & \textbf{Charge normale} \\
+\midrule
+Central ($i=3{,}5\,\%$ ; $\tau_s=2\,\%$) & 230\,047\,411 & 111\,103\,527 & 8\,223\,109 \\
+$i = 3{,}0\,\%$ & 249\,478\,037 & 117\,400\,814 & 8\,850\,923 \\
+$i = 4{,}0\,\%$ & 212\,687\,421 & 105\,328\,700 & 7\,659\,233 \\
+$\tau_s = 3\,\%$ & 271\,442\,252 & 124\,402\,266 & 9\,558\,948 \\
+$\tau_s = 1\,\%$ & 196\,416\,468 & 99\,708\,639 & 7\,126\,067 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+L'engagement est \emph{décroissant} avec le taux technique (une hausse de 50 points de base le réduit d'environ 7,5\,\%) et \emph{croissant} avec le taux d'évolution des salaires (une hausse d'un point l'augmente d'environ 18\,\%) : la prudence commande donc un taux technique modéré et une hypothèse salariale réaliste, à revoir lors de chaque réactualisation.
+
+\section{Le simulateur Excel}
+
+Le classeur \texttt{simulateur\_IFC\_SENIA.xlsx} met en œuvre l'intégralité de la méthodologie à l'aide de formules vivantes (aucune valeur n'est figée) :
+
+\begin{table}[H]
+\centering
+\caption{Organisation du classeur}
+\begin{tabular}{lp{9.5cm}}
+\toprule
+\rowcolor{lightblue} \textbf{Feuille} & \textbf{Contenu} \\
+\midrule
+\texttt{Hypotheses} & paramètres nommés (date d'évaluation, taux technique, taux d'évolution des salaires, turn-over, licenciement, frais\ldots) modifiables par l'utilisateur \\
+\texttt{BD} & base de données simulée du personnel (50 salariés : matricule, nom, catégorie, sexe, dates de naissance et d'embauche, salaires) \\
+\texttt{Baremes} & barème CCNI des droits (droit annuel et cumul, en formules) \\
+\texttt{Table\_CIMA\_H} & table de mortalité réglementaire et commutations $D_x, N_x, C_x, M_x$ recalculées au taux technique \\
+\texttt{Calculs} & évaluation individuelle, colonnes (1) à (17) de la méthodologie : ancienneté, salaire final, droits, probabilités, VAP, dette actuarielle, charge normale, passif IL, capital décès, prime pure IFC+ \\
+\texttt{Resultats} & synthèse : statistiques du groupe, résultats IFC, modalités de financement, résultats IFC+ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Toute modification d'une hypothèse (feuille \texttt{Hypotheses}) ou de la base (feuille \texttt{BD}) se propage automatiquement jusqu'à la synthèse ; le simulateur peut ainsi être réutilisé pour toute autre entreprise en collant simplement sa base de personnel.
+
+\section{Limites et recommandations}
+
+\begin{itemize}[label=\ding{224}]
+  \item les résultats sont fonction des informations transmises et des hypothèses retenues ; une \textbf{réactualisation de l'étude est nécessaire au minimum tous les trois ans}, avec versement d'une prime d'ajustement le cas échéant ;
+  \item la probabilité de présence est modélisée de façon simplifiée (turn-over intervenant dans le passif IL uniquement) ; un raffinement consisterait à appliquer une loi de rotation par âge ;
+  \item la base étant simulée, les montants n'ont qu'une valeur illustrative ; la méthodologie et le simulateur sont en revanche directement opérationnels sur une base réelle ;
+  \item le taux de valorisation de 3,5\,\% est un minimum garanti : la participation aux bénéfices (85\,\% financiers, 90\,\% techniques) améliore la constitution du fonds.
+\end{itemize}
+
+\section*{Annexe — Extrait de la base simulée (10 premiers salariés)}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{clllrr}
+\toprule
+\rowcolor{lightblue} \textbf{Mat.} & \textbf{Nom et prénoms} & \textbf{Catégorie} & \textbf{Naissance} & \textbf{Embauche} & \textbf{Salaire mensuel} \\
+\midrule
+1 & Mendy Dieynaba & Employé & 27/11/1966 & 22/05/2012 & 168\,600 \\
+2 & Thiam Boubacar & Employé & 17/01/1967 & 03/03/1997 & 257\,100 \\
+3 & Niang Sokhna & Ouvrier & 19/07/1967 & 02/05/2001 & 121\,100 \\
+4 & Kane Saliou & Agent de maîtrise & 28/09/1967 & 24/11/1995 & 390\,100 \\
+5 & Ndoye Adja & Cadre dirigeant & 15/04/1968 & 26/05/2013 & 3\,017\,000 \\
+6 & Camara Astou & Employé & 03/01/1969 & 27/07/2015 & 199\,800 \\
+7 & Ba Lamine & Agent de maîtrise & 26/08/1969 & 04/04/2008 & 383\,900 \\
+8 & Wade Awa & Cadre dirigeant & 03/01/1971 & 17/04/2001 & 2\,642\,800 \\
+9 & Sow Souleymane & Employé & 23/07/1971 & 22/09/2018 & 279\,300 \\
+10 & Lô Sokhna & Ouvrier & 06/05/1973 & 04/12/2020 & 99\,900 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+La base complète (50 salariés) figure dans la feuille \texttt{BD} du simulateur Excel.
