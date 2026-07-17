@@ -19,6 +19,7 @@ d'**Indemnités de Fin de Carrière (IFC / IFC+)**, évalué pour l'entreprise
 | `Note_Technique_IFC_SENIA.Rmd` | Source de la note (re-tricotable avec RStudio ; images dans `ressource/image/`) |
 | `simulateur_IFC_SENIA.xlsx` | Simulateur Excel avec formules vivantes ; la base du personnel est la feuille `BD` |
 | `Questionnaire_enquete_IFC.docx` | Questionnaire d'enquête (volets A-D) ayant permis de recueillir les produits et de constituer la base |
+| `Presentation_Projet_IFC.pdf` | Présentation Beamer 16:9 du projet (source `.tex`) |
 
 ## Scripts de construction
 
