@@ -12,7 +12,8 @@ sénégalaise fictive, **SENIA S.A.** (50 salariés, base simulée).
 
 | Fichier | Description |
 |---|---|
-| `Note_Technique_IFC_SENIA.Rmd` | Note technique du produit IFC/IFC+ (à tricoter en PDF avec RStudio, même modèle que la note précédente ; les images sont dans `ressource/image/`) |
+| `Note_Technique_IFC_SENIA.pdf` | **Note technique compilée** (11 pages) du produit IFC/IFC+ |
+| `Note_Technique_IFC_SENIA.Rmd` | Source de la note technique (modifiable puis re-tricotable avec RStudio, même modèle que la note précédente ; les images sont dans `ressource/image/`) |
 | `simulateur_IFC_SENIA.xlsx` | Simulateur Excel **sans couleur**, avec formules vivantes ; la base simulée est la feuille `BD` |
 | `Questionnaire_enquete_IFC.docx` | Questionnaire d'enquête (volets A–D) ayant permis de recueillir les produits et de constituer la base |
 

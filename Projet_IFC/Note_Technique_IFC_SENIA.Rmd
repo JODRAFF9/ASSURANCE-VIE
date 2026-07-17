@@ -23,7 +23,6 @@ header-includes: |
   \setlength{\headheight}{14.5pt}
   % 3. MATHÉMATIQUES
   \usepackage{amsmath, amssymb, amsfonts, amsthm}
-  \usepackage{MnSymbol} % Attention : peut entrer en conflit avec amssymb, à tester
   \usepackage{calc}
   % 4. TABLEAUX ET FIGURES
   \usepackage{booktabs, array, longtable, tabularx, tabu, multirow, makecell}
