@@ -260,12 +260,12 @@ ws = wb.active
 ws.title = "Hypotheses"
 ws.sheet_view.showGridLines = False
 ws.merge_cells("A1:C1")
-ws["A1"] = "SIMULATEUR IFC / IFC+ — ÉVALUATION ACTUARIELLE DU PASSIF SOCIAL"
+ws["A1"] = "SIMULATEUR IFC / IFC+ : ÉVALUATION ACTUARIELLE DU PASSIF SOCIAL"
 ws["A1"].font = T_FONT
 ws["A1"].alignment = CENTER
 
 rows_h = [
-    ("Entreprise", "SENIA S.A. — Sénégalaise des Industries Alimentaires", None, None),
+    ("Entreprise", "SENIA S.A. (Sénégalaise des Industries Alimentaires)", None, None),
     ("Localisation", "Zone industrielle de Dakar, Sénégal", None, None),
     ("Convention collective", "Convention Collective Nationale Interprofessionnelle (CCNI) du Sénégal", None, None),
     ("Date d'évaluation", DATE_EVAL, "DateEval", FMT_DATE),
@@ -452,7 +452,7 @@ for col in "DPQRSTWY":
 ws = wb.create_sheet("Resultats")
 ws.sheet_view.showGridLines = False
 ws.merge_cells("A1:C1")
-ws["A1"] = "SYNTHÈSE DE L'ÉVALUATION AU 31/12/2025 — SENIA S.A."
+ws["A1"] = "SYNTHÈSE DE L'ÉVALUATION AU 31/12/2025 : SENIA S.A."
 ws["A1"].font = T_FONT
 ws["A1"].alignment = CENTER
 
@@ -486,16 +486,16 @@ r_pil = r
 put(r, "Passif de l'indemnité de licenciement", f"=SUM(Calculs!T{N1}:T{N2})", bold=True); r += 2
 
 section(ws, r, "MODALITÉS DE FINANCEMENT"); r += 1
-put(r, "Option 1 — Prime unique (engagement global + passif IL)",
+put(r, "Option 1 : prime unique (engagement global + passif IL)",
     f"=B{r_eng}+B{r_pil}", bold=True); r += 1
-put(r, "Option 2 — Prime initiale (dette actuarielle), puis charge normale annuelle",
+put(r, "Option 2 : prime initiale (dette actuarielle), puis charge normale annuelle",
     f"=B{r_dette}", bold=True); r += 1
 put(r, "        dont charge normale de l'exercice suivant", f"=B{r_charge}"); r += 1
 r_amort = r
-put(r, "Option 3 — Amortissement de la dette actuarielle (par an)",
+put(r, "Option 3 : amortissement de la dette actuarielle (par an)",
     f"=B{r_dette}/DureeAmort"); r += 1
 r_pa = r
-put(r, "Option 3 — Prime annuelle sur la durée d'amortissement",
+put(r, "Option 3 : prime annuelle sur la durée d'amortissement",
     f"=B{r_amort}+B{r_charge}", bold=True); r += 1
 put(r, "Taux de prime uniforme (en % de la masse salariale)",
     f"=B{r_pa}/SUM({CA})", FMT_PCT); r += 2
@@ -519,6 +519,8 @@ wb.move_sheet("Resultats", offset=-(len(wb.sheetnames) - 1 - 1))  # après Hypot
 wb._sheets = [wb["Hypotheses"], wb["BD"], wb["Baremes"], wb["Table_CIMA_H"],
               wb["Calculs"], wb["Resultats"]]
 
+wb.properties.creator = "Groupe 1 - ISE3 ENSAE"
+wb.properties.title = "Simulateur IFC - SENIA S.A."
 out = os.path.join(HERE, "simulateur_IFC_SENIA.xlsx")
 wb.save(out)
 print("Classeur écrit :", out)

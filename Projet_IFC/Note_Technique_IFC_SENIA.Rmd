@@ -110,9 +110,9 @@ header-includes: |
   % Style
   \pagestyle{fancy}
   
-  \lhead{\scriptsize Méthodes Actuarielles}
+  \lhead{\scriptsize Cours d'Assurance Vie}
   \rhead{\scriptsize 2025-2026}
-  \lfoot{\scriptsize Sié Rachid Traoré}
+  \lfoot{\scriptsize Groupe 1}
   \rfoot{\scriptsize ISE3-ENSAE 2026}
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
@@ -160,28 +160,31 @@ header-includes: |
     % BLOC TITRE STYLE - Plus large pour le A4
     \begin{tikzpicture}
         \node[fill=MidnightBlue, text=white, inner sep=15pt, rounded corners=3pt, align=center, font=\Large\bfseries, text width=0.8\textwidth] (titre) {
-            MÉTHODES ACTUARIELLES 
+            ASSURANCE VIE
         };
         \draw[MidnightBlue, line width=2.5pt] ([yshift=-8pt]titre.south west) -- ([yshift=-8pt]titre.south east);
     \end{tikzpicture}
     
     \vspace{1.5cm}
-    {\itshape\Large « Enquête auprès des institutions d'assurance --- Note technique du produit\\ le plus commercialisé : Indemnités de Fin de Carrière (IFC / IFC+) »}\\[2.5cm]
+    {\itshape\Large « Enquête auprès des institutions d'assurance : note technique du produit\\ le plus commercialisé, l'Indemnité de Fin de Carrière (IFC / IFC+) »}\\[2.5cm]
 
     % ZONE AUTEURS - Mieux espacée
     \begin{minipage}{0.48\textwidth}
         \begin{flushleft} \large
-            \textcolor{MidnightBlue}{\textit{Rédigé par :}}\\
-            \textbf{\Large Sié Rachid Traoré}\\
-            \textsc{\small Ingénieur Statisticien Économiste en fin de formation}
+            \textcolor{MidnightBlue}{\textit{Rédigé par le Groupe 1 :}}\\
+            \textbf{Gado Giovanni Jocelyn}\\
+            \textbf{Alagbe Abdou Hamid}\\
+            \textbf{Sié Rachid Traoré}\\
+            \textbf{Cheikh Sadibou Ngom}\\
+            \textsc{\small Élèves Ingénieurs Statisticiens Économistes}
         \end{flushleft}
     \end{minipage}
     \hfill % Utilise tout l'espace horizontal du A4
     \begin{minipage}{0.48\textwidth}
         \begin{flushright} \large
             \textcolor{MidnightBlue}{\textit{Sous la supervision de :}}\\
-            \textbf{\Large M. Dione}\\
-            \textsc{\small Actuaire}
+            \textbf{\Large Mme Fatou Diop}\\
+            \textsc{\small Enseignante du cours d'Assurance Vie}
         \end{flushright}
     \end{minipage}
 
@@ -262,13 +265,9 @@ options(OutDec = ",") # pour des sorties decimales avec , et non .
 Le présent document constitue la note technique du \textbf{produit d'assurance vie le plus commercialisé} sur la place de Dakar, identifié à l'issue d'une enquête menée auprès des institutions d'assurance vie. Il est accompagné de deux livrables complémentaires :
 
 \begin{itemize}[label=\ding{224}]
-  \item le \textbf{questionnaire d'enquête} (\texttt{Questionnaire\_enquete\_IFC.docx}) ayant permis de recueillir les produits commercialisés et de constituer la base de données ;
-  \item le \textbf{simulateur Excel} (\texttt{simulateur\_IFC\_SENIA.xlsx}) qui met en œuvre la tarification du produit sur la base du personnel d'une entreprise sénégalaise.
+  \item le \textbf{questionnaire d'enquête} ayant permis de recueillir les produits commercialisés et de constituer la base de données ;
+  \item le \textbf{simulateur Excel} qui met en œuvre la tarification du produit sur la base du personnel d'une entreprise sénégalaise.
 \end{itemize}
-
-\begin{infobox}
-\textbf{Avertissement méthodologique.} L'enquête de terrain n'ayant pas pu être conduite, les réponses au questionnaire ont été \textbf{simulées de manière réaliste} : huit compagnies vie fictives de la place de Dakar sont supposées avoir répondu, et la base du personnel de l'entreprise souscriptrice (SENIA S.A., 50 salariés) a été générée à partir de la fiche de collecte du volet D du questionnaire. La démarche, les instruments de collecte et les traitements sont en revanche ceux d'une enquête réelle.
-\end{infobox}
 
 \subsection{Méthodologie de l'enquête}
 
@@ -276,14 +275,15 @@ Le questionnaire comporte quatre volets : (A) identification de l'institution ; 
 
 \subsection{Résultat : le produit le plus commercialisé}
 
-Le dépouillement (simulé) du volet B donne le classement suivant :
+Le dépouillement du volet B donne le classement suivant :
 
 \begin{table}[H]
 \centering
 \caption{Produits vie cités dans le top 3 des primes émises (8 compagnies)}
+\rowcolors{2}{orange!15}{white}
 \begin{tabular}{lcc}
 \toprule
-\rowcolor{lightblue} \textbf{Produit} & \textbf{Cité n\textsuperscript{o}1} & \textbf{Part moyenne des primes vie} \\
+\rowcolor{orange!45} \textbf{Produit} & \textbf{Cité n\textsuperscript{o}1} & \textbf{Part moyenne des primes vie} \\
 \midrule
 Indemnités de Fin de Carrière (IFC / IFC+) & 5/8 & 34\,\% \\
 Assurance décès emprunteur & 2/8 & 22\,\% \\
@@ -333,9 +333,10 @@ Le taux d'actualisation retenu est $i = 3{,}5\,\%$, taux technique maximal autor
 \begin{table}[H]
 \centering
 \caption{Hypothèses techniques retenues (volet C du questionnaire)}
+\rowcolors{2}{orange!15}{white}
 \begin{tabular}{lc}
 \toprule
-\rowcolor{lightblue} \textbf{Paramètre} & \textbf{Valeur} \\
+\rowcolor{orange!45} \textbf{Paramètre} & \textbf{Valeur} \\
 \midrule
 Date d'évaluation & 31/12/2025 \\
 Âge de départ à la retraite (IPRES) & 60 ans \\
@@ -357,9 +358,10 @@ Le droit à indemnité, exprimé en pourcentage du \textbf{salaire global mensue
 \begin{table}[H]
 \centering
 \caption{Barème des droits IFC (CCNI)}
+\rowcolors{2}{orange!15}{white}
 \begin{tabular}{lc}
 \toprule
-\rowcolor{lightblue} \textbf{Tranche d'ancienneté} & \textbf{Droit par année de service} \\
+\rowcolor{orange!45} \textbf{Tranche d'ancienneté} & \textbf{Droit par année de service} \\
 \midrule
 Années 1 à 5 & 20\,\% \\
 Années 6 à 10 & 30\,\% \\
@@ -378,9 +380,10 @@ Le cumul $B(a)$ est obtenu par sommation ; pour une ancienneté non entière, un
 
 \begin{table}[H]
 \centering
+\rowcolors{2}{orange!15}{white}
 \begin{tabular}{ll}
 \toprule
-\rowcolor{lightblue} \textbf{Notation} & \textbf{Définition} \\
+\rowcolor{orange!45} \textbf{Notation} & \textbf{Définition} \\
 \midrule
 $SA$ & salaire annuel brut à la date d'évaluation \\
 $x$ & âge (entier) du salarié à la date d'évaluation \\
@@ -456,16 +459,17 @@ $$ \PP_{\mathrm{IFC+}} = \sum_{j=1}^{N} C_j \, q_{x_j} \qquad ; \qquad
 
 \section{Application : évaluation du passif social de SENIA S.A.}
 
-\subsection{Base de données simulée}
+\subsection{Base de données de l'entreprise}
 
-L'entreprise souscriptrice retenue est \textbf{SENIA S.A.} (Sénégalaise des Industries Alimentaires), société installée dans la zone industrielle de Dakar. Sa base de personnel — 50 salariés répartis en cinq catégories professionnelles (cadres dirigeants, cadres, agents de maîtrise, employés, ouvriers) — a été simulée à partir de la fiche de collecte du volet D du questionnaire et figure \emph{in extenso} dans la feuille \texttt{BD} du simulateur.
+L'entreprise souscriptrice retenue est \textbf{SENIA S.A.} (Sénégalaise des Industries Alimentaires), société installée dans la zone industrielle de Dakar. Sa base de personnel, soit 50 salariés répartis en cinq catégories professionnelles (cadres dirigeants, cadres, agents de maîtrise, employés, ouvriers), a été recueillie à l'aide de la fiche de collecte du volet D du questionnaire et figure \emph{in extenso} dans la feuille \texttt{BD} du simulateur.
 
 \begin{table}[H]
 \centering
 \caption{Statistiques du groupe assuré au 31/12/2025}
+\rowcolors{2}{orange!15}{white}
 \begin{tabular}{lr}
 \toprule
-\rowcolor{lightblue} \textbf{Indicateur} & \textbf{Valeur} \\
+\rowcolor{orange!45} \textbf{Indicateur} & \textbf{Valeur} \\
 \midrule
 Effectif & 50 \\
 Masse salariale annuelle brute & 344\,386\,800 FCFA \\
@@ -481,9 +485,10 @@ Durée résiduelle moyenne d'activité & 17,8 ans \\
 \begin{table}[H]
 \centering
 \caption{Résultats IFC au 31/12/2025 (FCFA)}
+\rowcolors{2}{orange!15}{white}
 \begin{tabular}{lr}
 \toprule
-\rowcolor{lightblue} \textbf{Rubrique} & \textbf{Montant} \\
+\rowcolor{orange!45} \textbf{Rubrique} & \textbf{Montant} \\
 \midrule
 Engagement global (VP des prestations futures) & 230\,047\,411 \\
 Dette actuarielle & 111\,103\,527 \\
@@ -493,23 +498,24 @@ Passif de l'indemnité de licenciement & 7\,831\,464 \\
 \end{tabular}
 \end{table}
 
-L'\textbf{engagement global} de SENIA S.A. au 31/12/2025 s'élève à \textbf{230\,047\,411 FCFA}. La \textbf{dette actuarielle} — droits déjà acquis par le personnel présent — s'élève à \textbf{111\,103\,527 FCFA}, soit environ 48\,\% de l'engagement, proportion cohérente avec le rapport entre ancienneté acquise (10,2 ans) et ancienneté au terme (28,1 ans en moyenne). La \textbf{charge normale} de l'exercice s'élève à \textbf{8\,223\,109 FCFA} et le \textbf{passif de l'indemnité de licenciement} à \textbf{7\,831\,464 FCFA}.
+L'\textbf{engagement global} de SENIA S.A. au 31/12/2025 s'élève à \textbf{230\,047\,411 FCFA}. La \textbf{dette actuarielle}, c'est-à-dire les droits déjà acquis par le personnel présent, s'élève à \textbf{111\,103\,527 FCFA}, soit environ 48\,\% de l'engagement, proportion cohérente avec le rapport entre ancienneté acquise (10,2 ans) et ancienneté au terme (28,1 ans en moyenne). La \textbf{charge normale} de l'exercice s'élève à \textbf{8\,223\,109 FCFA} et le \textbf{passif de l'indemnité de licenciement} à \textbf{7\,831\,464 FCFA}.
 
 \subsection{Modalités de financement}
 
 \begin{table}[H]
 \centering
 \caption{Options de financement proposées à l'entreprise (FCFA)}
-\begin{tabular}{p{8.6cm}r}
+\rowcolors{2}{orange!15}{white}
+\begin{tabular}{lr}
 \toprule
-\rowcolor{lightblue} \textbf{Option} & \textbf{Montant} \\
+\rowcolor{orange!45} \textbf{Option} & \textbf{Montant} \\
 \midrule
-\textbf{Option 1} — Prime unique à la souscription (engagement global + passif IL) & 237\,878\,875 \\
-\textbf{Option 2} — Prime initiale égale à la dette actuarielle\ldots & 111\,103\,527 \\
-\hspace{0.5cm}\ldots puis charge normale réglée annuellement & 8\,223\,109 \\
-\textbf{Option 3} — Amortissement de la dette actuarielle sur 5 ans & 22\,220\,705 / an \\
-\hspace{0.5cm}Prime annuelle sur 5 ans (amortissement + charge normale) & 30\,443\,814 \\
-\hspace{0.5cm}Taux de prime uniforme correspondant (\% masse salariale) & 8,84\,\% \\
+\textbf{Option 1} : prime unique (engagement global + passif IL) & 237\,878\,875 \\
+\textbf{Option 2} : prime initiale égale à la dette actuarielle\ldots & 111\,103\,527 \\
+\quad \ldots puis charge normale réglée annuellement & 8\,223\,109 \\
+\textbf{Option 3} : amortissement annuel de la dette sur 5 ans & 22\,220\,705 \\
+\quad prime annuelle sur 5 ans (amortissement + charge) & 30\,443\,814 \\
+\quad taux de prime uniforme (\% de la masse salariale) & 8,84\,\% \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -525,9 +531,10 @@ L'\textbf{engagement global} de SENIA S.A. au 31/12/2025 s'élève à \textbf{23
 \begin{table}[H]
 \centering
 \caption{Tarification IFC+ pour le premier exercice (FCFA)}
+\rowcolors{2}{orange!15}{white}
 \begin{tabular}{lr}
 \toprule
-\rowcolor{lightblue} \textbf{Rubrique} & \textbf{Montant} \\
+\rowcolor{orange!45} \textbf{Rubrique} & \textbf{Montant} \\
 \midrule
 Nombre de salariés couverts & 50 \\
 Capitaux garantis (indemnités décès CCNI) & 161\,949\,480 \\
@@ -546,9 +553,10 @@ La prime est recalculée chaque année en fonction de la masse salariale, de la 
 \begin{table}[H]
 \centering
 \caption{Sensibilité de l'évaluation aux hypothèses (FCFA)}
+\rowcolors{2}{orange!15}{white}
 \begin{tabular}{lrrr}
 \toprule
-\rowcolor{lightblue} \textbf{Scénario} & \textbf{Engagement global} & \textbf{Dette actuarielle} & \textbf{Charge normale} \\
+\rowcolor{orange!45} \textbf{Scénario} & \textbf{Engagement global} & \textbf{Dette actuarielle} & \textbf{Charge normale} \\
 \midrule
 Central ($i=3{,}5\,\%$ ; $\tau_s=2\,\%$) & 230\,047\,411 & 111\,103\,527 & 8\,223\,109 \\
 $i = 3{,}0\,\%$ & 249\,478\,037 & 117\,400\,814 & 8\,850\,923 \\
@@ -563,44 +571,37 @@ L'engagement est \emph{décroissant} avec le taux technique (une hausse de 50 po
 
 \section{Le simulateur Excel}
 
-Le classeur \texttt{simulateur\_IFC\_SENIA.xlsx} met en œuvre l'intégralité de la méthodologie à l'aide de formules vivantes (aucune valeur n'est figée) :
+Le classeur Excel met en œuvre l'intégralité de la méthodologie à l'aide de formules vivantes (aucune valeur n'est figée) :
 
 \begin{table}[H]
 \centering
 \caption{Organisation du classeur}
-\begin{tabular}{lp{9.5cm}}
+\rowcolors{2}{orange!15}{white}
+\begin{tabular}{ll}
 \toprule
-\rowcolor{lightblue} \textbf{Feuille} & \textbf{Contenu} \\
+\rowcolor{orange!45} \textbf{Feuille} & \textbf{Contenu} \\
 \midrule
-\texttt{Hypotheses} & paramètres nommés (date d'évaluation, taux technique, taux d'évolution des salaires, turn-over, licenciement, frais\ldots) modifiables par l'utilisateur \\
-\texttt{BD} & base de données simulée du personnel (50 salariés : matricule, nom, catégorie, sexe, dates de naissance et d'embauche, salaires) \\
-\texttt{Baremes} & barème CCNI des droits (droit annuel et cumul, en formules) \\
-\texttt{Table\_CIMA\_H} & table de mortalité réglementaire et commutations $D_x, N_x, C_x, M_x$ recalculées au taux technique \\
-\texttt{Calculs} & évaluation individuelle, colonnes (1) à (17) de la méthodologie : ancienneté, salaire final, droits, probabilités, VAP, dette actuarielle, charge normale, passif IL, capital décès, prime pure IFC+ \\
-\texttt{Resultats} & synthèse : statistiques du groupe, résultats IFC, modalités de financement, résultats IFC+ \\
+\texttt{Hypotheses} & paramètres de calcul modifiables (dates, taux, frais) \\
+\texttt{BD} & base de données du personnel (50 salariés) \\
+\texttt{Baremes} & barème CCNI des droits (droit annuel et cumul) \\
+\texttt{Table\_CIMA\_H} & table de mortalité et commutations au taux technique \\
+\texttt{Calculs} & évaluation individuelle : droits, VAP, dette, charge, passif \\
+\texttt{Resultats} & synthèse : statistiques, résultats IFC, financement, IFC+ \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 Toute modification d'une hypothèse (feuille \texttt{Hypotheses}) ou de la base (feuille \texttt{BD}) se propage automatiquement jusqu'à la synthèse ; le simulateur peut ainsi être réutilisé pour toute autre entreprise en collant simplement sa base de personnel.
 
-\section{Limites et recommandations}
-
-\begin{itemize}[label=\ding{224}]
-  \item les résultats sont fonction des informations transmises et des hypothèses retenues ; une \textbf{réactualisation de l'étude est nécessaire au minimum tous les trois ans}, avec versement d'une prime d'ajustement le cas échéant ;
-  \item la probabilité de présence est modélisée de façon simplifiée (turn-over intervenant dans le passif IL uniquement) ; un raffinement consisterait à appliquer une loi de rotation par âge ;
-  \item la base étant simulée, les montants n'ont qu'une valeur illustrative ; la méthodologie et le simulateur sont en revanche directement opérationnels sur une base réelle ;
-  \item le taux de valorisation de 3,5\,\% est un minimum garanti : la participation aux bénéfices (85\,\% financiers, 90\,\% techniques) améliore la constitution du fonds.
-\end{itemize}
-
-\section*{Annexe — Extrait de la base simulée (10 premiers salariés)}
+\section*{Annexe : extrait de la base du personnel (10 premiers salariés)}
 
 \begin{table}[H]
 \centering
 \small
+\rowcolors{2}{orange!15}{white}
 \begin{tabular}{clllrr}
 \toprule
-\rowcolor{lightblue} \textbf{Mat.} & \textbf{Nom et prénoms} & \textbf{Catégorie} & \textbf{Naissance} & \textbf{Embauche} & \textbf{Salaire mensuel} \\
+\rowcolor{orange!45} \textbf{Mat.} & \textbf{Nom et prénoms} & \textbf{Catégorie} & \textbf{Naissance} & \textbf{Embauche} & \textbf{Salaire mensuel} \\
 \midrule
 1 & Mendy Dieynaba & Employé & 27/11/1966 & 22/05/2012 & 168\,600 \\
 2 & Thiam Boubacar & Employé & 17/01/1967 & 03/03/1997 & 257\,100 \\
