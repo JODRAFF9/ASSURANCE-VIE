@@ -1,0 +1,551 @@
+{
+ "synthese": {
+  "effectif": 50,
+  "masse_salariale": 344386800,
+  "age_moyen": 42.17297741273101,
+  "anciennete_moyenne": 10.23649555099247,
+  "duree_residuelle_moyenne": 17.827022587268992,
+  "engagement_global": 230047411.13366625,
+  "dette_actuarielle": 111103527.26778248,
+  "charge_normale": 8223108.714428995,
+  "passif_IL": 7831464.1389543265,
+  "prime_unique_opt1": 237878875.27262056,
+  "amortissement_dette_5ans": 22220705.453556497,
+  "prime_annuelle_opt3": 30443814.16798549,
+  "taux_prime_uniforme_masse": 0.08840006111728292,
+  "capitaux_deces_IFCplus": 161949480.0,
+  "prime_pure_IFCplus": 1179286.658604048,
+  "prime_commerciale_IFCplus": 1203353.7332694368,
+  "taux_prime_IFCplus_capitaux": 0.007430426656939168,
+  "taux_prime_IFCplus_masse": 0.0034941923827203503
+ },
+ "sensibilite": {
+  "central (i=3,5% ; s=2%)": [
+   230047411.13366628,
+   111103527.26778248,
+   8223108.714428995
+  ],
+  "i=3,0%": [
+   249478037.47635043,
+   117400813.63113406,
+   8850923.14227682
+  ],
+  "i=4,0%": [
+   212687420.7001863,
+   105328700.12006584,
+   7659232.991024997
+  ],
+  "s=3%": [
+   271442251.68366116,
+   124402265.70020664,
+   9558947.509598084
+  ],
+  "s=1%": [
+   196416467.6375941,
+   99708639.40135236,
+   7126066.826195808
+  ]
+ },
+ "employes": [
+  {
+   "mat": 1,
+   "nom": "Mendy",
+   "prenom": "Dieynaba",
+   "cat": "Employé",
+   "sexe": "F",
+   "naissance": "1966-11-27",
+   "embauche": "2012-05-22",
+   "sal_mensuel": 168600
+  },
+  {
+   "mat": 2,
+   "nom": "Thiam",
+   "prenom": "Boubacar",
+   "cat": "Employé",
+   "sexe": "M",
+   "naissance": "1967-01-17",
+   "embauche": "1997-03-03",
+   "sal_mensuel": 257100
+  },
+  {
+   "mat": 3,
+   "nom": "Niang",
+   "prenom": "Sokhna",
+   "cat": "Ouvrier",
+   "sexe": "F",
+   "naissance": "1967-07-19",
+   "embauche": "2001-05-02",
+   "sal_mensuel": 121100
+  },
+  {
+   "mat": 4,
+   "nom": "Kane",
+   "prenom": "Saliou",
+   "cat": "Agent de maîtrise",
+   "sexe": "M",
+   "naissance": "1967-09-28",
+   "embauche": "1995-11-24",
+   "sal_mensuel": 390100
+  },
+  {
+   "mat": 5,
+   "nom": "Ndoye",
+   "prenom": "Adja",
+   "cat": "Cadre dirigeant",
+   "sexe": "F",
+   "naissance": "1968-04-15",
+   "embauche": "2013-05-26",
+   "sal_mensuel": 3017000
+  },
+  {
+   "mat": 6,
+   "nom": "Camara",
+   "prenom": "Astou",
+   "cat": "Employé",
+   "sexe": "F",
+   "naissance": "1969-01-03",
+   "embauche": "2015-07-27",
+   "sal_mensuel": 199800
+  },
+  {
+   "mat": 7,
+   "nom": "Ba",
+   "prenom": "Lamine",
+   "cat": "Agent de maîtrise",
+   "sexe": "M",
+   "naissance": "1969-08-26",
+   "embauche": "2008-04-04",
+   "sal_mensuel": 383900
+  },
+  {
+   "mat": 8,
+   "nom": "Wade",
+   "prenom": "Awa",
+   "cat": "Cadre dirigeant",
+   "sexe": "F",
+   "naissance": "1971-01-03",
+   "embauche": "2001-04-17",
+   "sal_mensuel": 2642800
+  },
+  {
+   "mat": 9,
+   "nom": "Sow",
+   "prenom": "Souleymane",
+   "cat": "Employé",
+   "sexe": "M",
+   "naissance": "1971-07-23",
+   "embauche": "2018-09-22",
+   "sal_mensuel": 279300
+  },
+  {
+   "mat": 10,
+   "nom": "Lô",
+   "prenom": "Sokhna",
+   "cat": "Ouvrier",
+   "sexe": "F",
+   "naissance": "1973-05-06",
+   "embauche": "2020-12-04",
+   "sal_mensuel": 99900
+  },
+  {
+   "mat": 11,
+   "nom": "Diallo",
+   "prenom": "Serigne",
+   "cat": "Employé",
+   "sexe": "M",
+   "naissance": "1974-08-07",
+   "embauche": "2022-07-02",
+   "sal_mensuel": 179600
+  },
+  {
+   "mat": 12,
+   "nom": "Niang",
+   "prenom": "Omar",
+   "cat": "Agent de maîtrise",
+   "sexe": "M",
+   "naissance": "1974-12-02",
+   "embauche": "2016-11-21",
+   "sal_mensuel": 384400
+  },
+  {
+   "mat": 13,
+   "nom": "Diop",
+   "prenom": "Khady",
+   "cat": "Cadre dirigeant",
+   "sexe": "F",
+   "naissance": "1976-04-05",
+   "embauche": "2020-02-22",
+   "sal_mensuel": 2836900
+  },
+  {
+   "mat": 14,
+   "nom": "Gning",
+   "prenom": "Saliou",
+   "cat": "Cadre",
+   "sexe": "M",
+   "naissance": "1976-12-03",
+   "embauche": "1998-11-08",
+   "sal_mensuel": 1407100
+  },
+  {
+   "mat": 15,
+   "nom": "Dieng",
+   "prenom": "Astou",
+   "cat": "Agent de maîtrise",
+   "sexe": "F",
+   "naissance": "1978-05-14",
+   "embauche": "2004-08-01",
+   "sal_mensuel": 683800
+  },
+  {
+   "mat": 16,
+   "nom": "Fall",
+   "prenom": "Serigne",
+   "cat": "Agent de maîtrise",
+   "sexe": "M",
+   "naissance": "1978-10-18",
+   "embauche": "2006-10-08",
+   "sal_mensuel": 352500
+  },
+  {
+   "mat": 17,
+   "nom": "Kane",
+   "prenom": "Dieynaba",
+   "cat": "Employé",
+   "sexe": "F",
+   "naissance": "1979-01-15",
+   "embauche": "2019-10-04",
+   "sal_mensuel": 163200
+  },
+  {
+   "mat": 18,
+   "nom": "Sy",
+   "prenom": "Ramatoulaye",
+   "cat": "Cadre",
+   "sexe": "F",
+   "naissance": "1979-04-27",
+   "embauche": "2001-06-13",
+   "sal_mensuel": 977600
+  },
+  {
+   "mat": 19,
+   "nom": "Gning",
+   "prenom": "Boubacar",
+   "cat": "Cadre",
+   "sexe": "M",
+   "naissance": "1979-11-16",
+   "embauche": "2012-11-15",
+   "sal_mensuel": 871400
+  },
+  {
+   "mat": 20,
+   "nom": "Mendy",
+   "prenom": "Boubacar",
+   "cat": "Ouvrier",
+   "sexe": "M",
+   "naissance": "1980-08-15",
+   "embauche": "2022-04-17",
+   "sal_mensuel": 105800
+  },
+  {
+   "mat": 21,
+   "nom": "Camara",
+   "prenom": "Modou",
+   "cat": "Ouvrier",
+   "sexe": "M",
+   "naissance": "1981-06-13",
+   "embauche": "2024-05-18",
+   "sal_mensuel": 83300
+  },
+  {
+   "mat": 22,
+   "nom": "Ndoye",
+   "prenom": "Adja",
+   "cat": "Agent de maîtrise",
+   "sexe": "F",
+   "naissance": "1981-11-21",
+   "embauche": "2013-08-17",
+   "sal_mensuel": 508000
+  },
+  {
+   "mat": 23,
+   "nom": "Mbaye",
+   "prenom": "Babacar",
+   "cat": "Cadre",
+   "sexe": "M",
+   "naissance": "1982-04-25",
+   "embauche": "2013-02-03",
+   "sal_mensuel": 1072900
+  },
+  {
+   "mat": 24,
+   "nom": "Gning",
+   "prenom": "Ibrahima",
+   "cat": "Ouvrier",
+   "sexe": "M",
+   "naissance": "1983-10-09",
+   "embauche": "2005-02-20",
+   "sal_mensuel": 103200
+  },
+  {
+   "mat": 25,
+   "nom": "Mbaye",
+   "prenom": "Salimata",
+   "cat": "Employé",
+   "sexe": "F",
+   "naissance": "1983-11-23",
+   "embauche": "2014-04-09",
+   "sal_mensuel": 221200
+  },
+  {
+   "mat": 26,
+   "nom": "Mendy",
+   "prenom": "Omar",
+   "cat": "Cadre",
+   "sexe": "M",
+   "naissance": "1983-12-15",
+   "embauche": "2021-02-13",
+   "sal_mensuel": 817000
+  },
+  {
+   "mat": 27,
+   "nom": "Samb",
+   "prenom": "Serigne",
+   "cat": "Cadre",
+   "sexe": "M",
+   "naissance": "1984-10-13",
+   "embauche": "2016-04-05",
+   "sal_mensuel": 1183100
+  },
+  {
+   "mat": 28,
+   "nom": "Faye",
+   "prenom": "Alioune",
+   "cat": "Employé",
+   "sexe": "M",
+   "naissance": "1986-10-24",
+   "embauche": "2024-01-24",
+   "sal_mensuel": 206400
+  },
+  {
+   "mat": 29,
+   "nom": "Sy",
+   "prenom": "Amadou",
+   "cat": "Ouvrier",
+   "sexe": "M",
+   "naissance": "1988-06-10",
+   "embauche": "2016-04-01",
+   "sal_mensuel": 117900
+  },
+  {
+   "mat": 30,
+   "nom": "Diagne",
+   "prenom": "Idrissa",
+   "cat": "Ouvrier",
+   "sexe": "M",
+   "naissance": "1988-07-03",
+   "embauche": "2019-10-11",
+   "sal_mensuel": 118100
+  },
+  {
+   "mat": 31,
+   "nom": "Camara",
+   "prenom": "Astou",
+   "cat": "Agent de maîtrise",
+   "sexe": "F",
+   "naissance": "1988-11-10",
+   "embauche": "2015-03-12",
+   "sal_mensuel": 616900
+  },
+  {
+   "mat": 32,
+   "nom": "Badji",
+   "prenom": "Souleymane",
+   "cat": "Ouvrier",
+   "sexe": "M",
+   "naissance": "1989-07-18",
+   "embauche": "2023-01-10",
+   "sal_mensuel": 93600
+  },
+  {
+   "mat": 33,
+   "nom": "Mendy",
+   "prenom": "Bineta",
+   "cat": "Employé",
+   "sexe": "F",
+   "naissance": "1990-03-26",
+   "embauche": "2023-03-14",
+   "sal_mensuel": 154500
+  },
+  {
+   "mat": 34,
+   "nom": "Fall",
+   "prenom": "Ibrahima",
+   "cat": "Employé",
+   "sexe": "M",
+   "naissance": "1990-06-19",
+   "embauche": "2019-03-14",
+   "sal_mensuel": 172900
+  },
+  {
+   "mat": 35,
+   "nom": "Seck",
+   "prenom": "Maguette",
+   "cat": "Agent de maîtrise",
+   "sexe": "F",
+   "naissance": "1990-09-28",
+   "embauche": "2020-07-07",
+   "sal_mensuel": 675100
+  },
+  {
+   "mat": 36,
+   "nom": "Sow",
+   "prenom": "Idrissa",
+   "cat": "Employé",
+   "sexe": "M",
+   "naissance": "1992-02-08",
+   "embauche": "2018-05-06",
+   "sal_mensuel": 228900
+  },
+  {
+   "mat": 37,
+   "nom": "Dieng",
+   "prenom": "Assane",
+   "cat": "Employé",
+   "sexe": "M",
+   "naissance": "1992-03-24",
+   "embauche": "2020-09-23",
+   "sal_mensuel": 227000
+  },
+  {
+   "mat": 38,
+   "nom": "Diouf",
+   "prenom": "Coumba",
+   "cat": "Employé",
+   "sexe": "F",
+   "naissance": "1992-10-20",
+   "embauche": "2013-10-03",
+   "sal_mensuel": 225500
+  },
+  {
+   "mat": 39,
+   "nom": "Touré",
+   "prenom": "Abdoulaye",
+   "cat": "Cadre",
+   "sexe": "M",
+   "naissance": "1992-11-06",
+   "embauche": "2023-07-20",
+   "sal_mensuel": 804000
+  },
+  {
+   "mat": 40,
+   "nom": "Lô",
+   "prenom": "Assane",
+   "cat": "Agent de maîtrise",
+   "sexe": "M",
+   "naissance": "1993-04-07",
+   "embauche": "2022-08-05",
+   "sal_mensuel": 497700
+  },
+  {
+   "mat": 41,
+   "nom": "Sarr",
+   "prenom": "Pape",
+   "cat": "Employé",
+   "sexe": "M",
+   "naissance": "1993-05-10",
+   "embauche": "2023-04-23",
+   "sal_mensuel": 211700
+  },
+  {
+   "mat": 42,
+   "nom": "Touré",
+   "prenom": "Serigne",
+   "cat": "Cadre",
+   "sexe": "M",
+   "naissance": "1994-05-15",
+   "embauche": "2020-03-12",
+   "sal_mensuel": 1052000
+  },
+  {
+   "mat": 43,
+   "nom": "Sy",
+   "prenom": "Abdoulaye",
+   "cat": "Agent de maîtrise",
+   "sexe": "M",
+   "naissance": "1994-12-16",
+   "embauche": "2016-09-25",
+   "sal_mensuel": 394000
+  },
+  {
+   "mat": 44,
+   "nom": "Sy",
+   "prenom": "Aminata",
+   "cat": "Agent de maîtrise",
+   "sexe": "F",
+   "naissance": "1995-06-03",
+   "embauche": "2024-04-09",
+   "sal_mensuel": 584100
+  },
+  {
+   "mat": 45,
+   "nom": "Badji",
+   "prenom": "Mariama",
+   "cat": "Ouvrier",
+   "sexe": "F",
+   "naissance": "1995-09-22",
+   "embauche": "2021-02-27",
+   "sal_mensuel": 136900
+  },
+  {
+   "mat": 46,
+   "nom": "Ndoye",
+   "prenom": "Astou",
+   "cat": "Cadre",
+   "sexe": "F",
+   "naissance": "1995-09-24",
+   "embauche": "2019-03-15",
+   "sal_mensuel": 1072500
+  },
+  {
+   "mat": 47,
+   "nom": "Sow",
+   "prenom": "Assane",
+   "cat": "Ouvrier",
+   "sexe": "M",
+   "naissance": "1996-06-21",
+   "embauche": "2023-11-27",
+   "sal_mensuel": 109900
+  },
+  {
+   "mat": 48,
+   "nom": "Sy",
+   "prenom": "Malick",
+   "cat": "Agent de maîtrise",
+   "sexe": "M",
+   "naissance": "1996-09-04",
+   "embauche": "2017-11-18",
+   "sal_mensuel": 642600
+  },
+  {
+   "mat": 49,
+   "nom": "Gning",
+   "prenom": "Omar",
+   "cat": "Employé",
+   "sexe": "M",
+   "naissance": "1998-04-22",
+   "embauche": "2020-11-04",
+   "sal_mensuel": 213700
+  },
+  {
+   "mat": 50,
+   "nom": "Diagne",
+   "prenom": "Salimata",
+   "cat": "Agent de maîtrise",
+   "sexe": "F",
+   "naissance": "2000-08-01",
+   "embauche": "2021-06-27",
+   "sal_mensuel": 632400
+  }
+ ]
+}
