@@ -1,0 +1,759 @@
+---
+documentclass: article
+fontsize: 12pt
+output:
+  pdf_document:
+    toc: no
+    fig_caption: yes
+    number_sections: no
+    keep_tex: no
+header-includes: |
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage[french]{babel}
+  \usepackage{lmodern} % Police moderne (préférée à mathptmx pour le français)
+  \usepackage{microtype} % Améliore la typographie générale
+  % 2. GÉOMÉTRIE ET MISE EN PAGE
+  \usepackage[margin=1in, a4paper, hmargin=2.5cm, vmargin=1.5cm]{geometry}
+  \usepackage{fancyhdr}
+  \usepackage{setspace}
+  \usepackage{parskip}
+  \usepackage{pdfpages}
+  \usepackage[pages=all]{background}
+  \setlength{\headheight}{14.5pt}
+  % 3. MATHÉMATIQUES
+  \usepackage{amsmath, amssymb, amsfonts, amsthm}
+  \usepackage{MnSymbol} % Attention : peut entrer en conflit avec amssymb, à tester
+  \usepackage{calc}
+  % 4. TABLEAUX ET FIGURES
+  \usepackage{booktabs, array, longtable, tabularx, tabu, multirow, makecell}
+  \usepackage{colortbl}
+  \usepackage{graphicx}
+  \usepackage{float}
+  % 5. COULEURS
+  \usepackage[dvipsnames, svgnames, x11names, table]{xcolor} 
+  \definecolor{deepblue}{RGB}{10, 60, 90}
+  \definecolor{MidnightBlue}{RGB}{25, 25, 112}
+  \definecolor{RoyalBlue}{RGB}{65, 105, 225}
+  \definecolor{darkblue}{HTML}{1F3864}
+  \definecolor{midblue}{HTML}{2E5FA3}
+  \definecolor{lightblue}{HTML}{D6E4F0}
+  \definecolor{gre}{RGB}{101, 191, 127}
+  \definecolor{gree}{RGB}{7, 135, 44}
+  \definecolor{accent}{HTML}{C0392B}
+  \definecolor{greybg}{HTML}{F2F4F7}
+  \definecolor{rowgrey}{HTML}{EAF0F6}
+  \definecolor{bordercolor}{HTML}{B0C4DE}
+  \definecolor{textgrey}{HTML}{444444}
+  \definecolor{formulabg}{HTML}{EEF4FB}
+  % 6. GRAPHISME ET DIAGRAMMES (TIKZ)
+  \usepackage{tikz}
+  \usetikzlibrary{shapes.geometric, arrows, calc}
+  % 7. STRUCTURE ET BLOCS PERSONNALISÉS
+  \usepackage{titlesec}
+  \usepackage{tocloft}
+  \usepackage[most]{tcolorbox}
+  \usepackage{mdframed}
+  \usepackage{enumitem}
+  \usepackage{fncychap} % Style Conny pour les chapitres
+  % 8. HYPERLIENS ET RÉFÉRENCES
+  \usepackage{hyperref}
+  \hypersetup{colorlinks=true, linkcolor=midblue, citecolor=RoyalBlue}
+  \usepackage{pifont}
+  % 9. ENVIRONNEMENTS SPÉCIAUX (MDFRAMED)
+  \newmdenv[
+    backgroundcolor=formulabg,
+    linecolor=midblue,
+    linewidth=1.5pt,
+    leftline=true, rightline=false, topline=false, bottomline=false,
+    innerleftmargin=12pt, innerrightmargin=12pt,
+    innertopmargin=8pt, innerbottommargin=8pt,
+  ]{formule}
+  \newmdenv[
+    backgroundcolor=lightblue,
+    linecolor=midblue,
+    linewidth=2pt,
+    leftline=true, rightline=false, topline=false, bottomline=false,
+    innerleftmargin=12pt, innerrightmargin=12pt,
+    innertopmargin=8pt, innerbottommargin=8pt,
+  ]{infobox}
+  % 10. COMMANDES ACTUARIELLES ET UTILITAIRES
+  \newcommand{\tpx}[2]{{}_{#1}p_{#2}}
+  \newcommand{\ax}[2]{\ddot{a}_{#2,\,\overline{#1}|}}
+  \newcommand{\qx}[1]{q_{#1}}
+  %\newcommand\thesection{\arabic{section}}
+  \newcommand{\rowA}{\rowcolor{rowgrey}}
+  \newcommand{\rowB}{\rowcolor{white}}
+  \newcommand{\CRD}{\mathrm{CRD}} \newcommand{\PP}{\mathrm{PP}}
+  \newcommand{\PA}{\mathrm{PA}}  \newcommand{\PI}{\mathrm{PI}}
+  \newcommand{\PC}{\mathrm{PC}}  \newcommand{\PM}{\mathrm{PM}}
+  \setcounter{secnumdepth}{4}
+  \renewcommand{\arraystretch}{1.4}
+---
+
+
+```{=tex}
+	%%%%%%%%%%%%%%%%Pied de page et en-tête%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  % Dimensions
+  \setlength{\headheight}{18pt}
+  \setlength{\headsep}{20pt}
+  \setlength{\footskip}{25pt}
+  
+  % Lignes colorées
+  \renewcommand{\headrulewidth}{1pt}
+  \let\oldheadrule\headrule
+  \renewcommand{\headrule}{\color{MidnightBlue}\oldheadrule}
+  
+  \renewcommand{\footrulewidth}{1pt}
+  \let\oldfootrule\footrule
+  \renewcommand{\footrule}{\color{MidnightBlue}\oldfootrule}
+  
+  % Style
+  \pagestyle{fancy}
+  
+  \lhead{\scriptsize Méthodes Actuarielles}
+  \rhead{\scriptsize 2025-2026}
+  \lfoot{\scriptsize Sié Rachid Traoré}
+  \rfoot{\scriptsize ISE3-ENSAE 2026}
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\begin{tikzpicture}[remember picture, overlay]
+    % 1. Fond et Bordures existantes
+    \fill[deepblue!3] (current page.south west) rectangle (current page.north east);
+    
+    \draw [deepblue, line width=2pt] ([shift={(10pt,-10pt)}]current page.north west) rectangle ([shift={(-10pt,10pt)}]current page.south east);
+    
+    \draw [orange!60!black, line width=0.5pt] ([shift={(12.5pt,-12.5pt)}]current page.north west) rectangle ([shift={(-12.5pt,12.5pt)}]current page.south east);
+    
+    \draw [deepblue!60, line width=0.8pt] ([shift={(15pt,-15pt)}]current page.north west) rectangle ([shift={(-15pt,15pt)}]current page.south east);
+
+    % 2. FILIGRANE CENTRAL (L'ajout "Plus")
+    % Remplace 'ENSAE-logo' par le nom de ton fichier image si tu veux le logo en fond
+    \node[opacity=0.05] at (current page.center) {\includegraphics[width=0.6\paperwidth]{ressource/image/ENSAE-Dakar-logo.png}};
+
+    % 3. Motifs de Coins "Diamants"
+    \foreach \anchor/\xshift/\yshift in {north west/25pt/-25pt, north east/-25pt/-25pt, south west/25pt/25pt, south east/-25pt/25pt} {
+        \draw[deepblue!40, fill=deepblue!10, rotate around={45:([shift={(\xshift,\yshift)}]current page.\anchor)}] 
+            ([shift={(\xshift,\yshift)}]current page.\anchor) rectangle ++(10pt,10pt);
+    }
+
+    % 4. Bandeau de bas de page amélioré
+    \draw[deepblue!80, line width=1.5pt] ([shift={(100pt,40pt)}]current page.south west) -- ([shift={(-100pt,40pt)}]current page.south east);
+    \node[draw=deepblue, fill=white, star, star points=5, inner sep=2pt, line width=1pt] 
+        at ([yshift=40pt]current page.south) {};
+
+\end{tikzpicture}
+
+\thispagestyle{empty}
+
+\begin{center}
+    \vspace*{-1.5cm} % Remonte un peu pour le A4
+    \textsc{\Large République du Sénégal}\\
+    \small{Un Peuple - Un But - Une Foi}\\[0.4cm]
+    \includegraphics[width=60pt]{ressource/image/Republique du Senegal.png}\\[0.8cm]
+
+    \textbf{\large Agence Nationale de la Statistique et de la Démographie (ANSD)}\\
+    \includegraphics[width=60pt]{ressource/image/ANSD.jpg}\\[0.6cm]
+    
+    \textbf{\large École Nationale de la Statistique et de l'Analyse Économique Pierre Ndiaye (ENSAE)}\\
+    \includegraphics[width=60pt]{ressource/image/ENSAE-Dakar-logo.png}\\[2cm]
+
+    % BLOC TITRE STYLE - Plus large pour le A4
+    \begin{tikzpicture}
+        \node[fill=MidnightBlue, text=white, inner sep=15pt, rounded corners=3pt, align=center, font=\Large\bfseries, text width=0.8\textwidth] (titre) {
+            MÉTHODES ACTUARIELLES 
+        };
+        \draw[MidnightBlue, line width=2.5pt] ([yshift=-8pt]titre.south west) -- ([yshift=-8pt]titre.south east);
+    \end{tikzpicture}
+    
+    \vspace{1.5cm}
+    {\itshape\Large « Produire la note technique du produit\\ Assurance Décès Emprunteur - Garantie sur plusieurs têtes »}\\[2.5cm]
+
+    % ZONE AUTEURS - Mieux espacée
+    \begin{minipage}{0.48\textwidth}
+        \begin{flushleft} \large
+            \textcolor{MidnightBlue}{\textit{Rédigé par :}}\\
+            \textbf{\Large Sié Rachid Traoré}\\
+            \textsc{\small Ingénieur Statisticien Économiste en fin de formation}
+        \end{flushleft}
+    \end{minipage}
+    \hfill % Utilise tout l'espace horizontal du A4
+    \begin{minipage}{0.48\textwidth}
+        \begin{flushright} \large
+            \textcolor{MidnightBlue}{\textit{Sous la supervision de :}}\\
+            \textbf{\Large M. Dione}\\
+            \textsc{\small Actuaire}
+        \end{flushright}
+    \end{minipage}
+
+    \vfill % Pousse la date tout en bas
+    \begin{tikzpicture}
+        \draw[MidnightBlue!30, line width=1pt] (-2,0) -- (2,0);
+    \end{tikzpicture}\\[0.3cm]
+    {\Large \textbf{Mars 2026}}
+\end{center}
+  
+
+
+  \backgroundsetup{
+    scale=1,
+    color=black,
+    opacity=1,
+    angle=0,
+    contents={%
+      \begin{tikzpicture}[remember picture, overlay]
+        % 1. Équerres d'angles "Double Ligne" (Plus moderne)
+        \foreach \anchor/\rot in {north west/0, north east/-90, south east/-180, south west/90} {
+          \begin{scope}[shift={([shift={(15pt,-15pt)}]current page.\anchor)}, rotate=\rot]
+            \draw[deepblue!60, line width=1.2pt] (0,-25pt) -- (0,0) -- (25pt,0);
+            \draw[orange!60!black, line width=0.4pt] (3pt,-22pt) -- (3pt,3pt) -- (22pt,3pt);
+          \end{scope}
+        }
+        % 2. Marge technique avec graduation (Style règle d'ingénieur)
+        \draw[deepblue!20, line width=0.5pt] 
+            ([xshift=35pt, yshift=-60pt]current page.north west) -- ([xshift=35pt, yshift=60pt]current page.south west);
+        \foreach \y in {0,20,...,400} {
+            \draw[deepblue!20] ([xshift=35pt, yshift=-\y pt-100pt]current page.north west) -- ++(-3pt,0);
+        }
+        % 3. Symbole Statistique : Courbe de Gumbel (GEV) mathématique
+        % Tracée proprement en haut à droite
+        % --- Symbole Actuariat : Rente Viagère et Probabilité ---
+        \begin{scope}[shift={([shift={(-80pt,-50pt)}]current page.north east)}, scale=1.2, opacity=0.4, deepblue]
+            % Le symbole "a deux points x" (Rente due)
+            \node[scale=2.5, font=\boldmath] (ax) at (0,0) {$\ddot{a}_x$};
+            % Un arc de cercle stylisé symbolisant la ligne de vie ou l'espérance
+            \draw[line width=1pt, ->, >=stealth] (-0.8,-0.5) arc (200:340:1.2);
+            % Petite formule discrète de la somme actualisée
+            \node[scale=0.5, anchor=north] at (0,-0.7) {$\sum_{k=0}^{\infty} v^k \, {}_kp_x$};
+            % Texte d'identification
+            \node[scale=0.6, rotate=90, anchor=south] at (1.2,0) {Life Contingencies};
+        \end{scope}
+        % 4. Rappel discret de l'institution en filigrane vertical
+        \node[deepblue!15, rotate=90, anchor=south] at ([xshift=25pt]current page.west) 
+            {\textsc{\scriptsize ENSAE Pierre Ndiaye - Ingénieur Statisticien Économiste - Promo 2026}};;
+      \end{tikzpicture}%
+    }
+  }
+
+  \newpage
+  \setcounter{tocdepth}{2}
+  \renewcommand{\contentsname}{\textcolor{MidnightBlue}{Sommaire}}
+  \textcolor{black}{\tableofcontents}
+
+  \renewcommand{\listtablename}{\textcolor{MidnightBlue}{Liste des tableaux}}
+  {\color{black}\listoftables}
+
+  %\renewcommand{\listfigurename}{\textcolor{MidnightBlue}{Liste des graphiques}}
+  %{\color{black}\listoffigures}
+```
+
+
+```{r setup, include=FALSE,comment=""}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+options(OutDec = ",") # pour des sorties decimales avec , et non .
+```
+
+
+\newpage
+
+
+\section{Garanties}
+
+
+\textbf{Objet de la garantie :} L'assurance Décès Emprunteur multi-têtes a pour objet le remboursement du capital restant dû d'un crédit en cas de décès de l'un ou plusieurs des co-emprunteurs assurés, dans les limites des quotités souscrites.
+
+\subsection{Nature des garanties}
+
+\begin{itemize}[leftmargin=1.5em, itemsep=3pt]
+  \item Décès toutes causes (y compris accidentel et naturel) ;
+  \item Décès par accident (option complémentaire) ;
+  \item Perte Totale et Irréversible d'Autonomie (PTIA) assimilée au décès.
+\end{itemize}
+
+\subsection{Personnes assurées}
+
+La garantie couvre \textbf{plusieurs co-emprunteurs} (jusqu'à 4 têtes) sur un même contrat. Chaque assuré est caractérisé par :
+
+\begin{itemize}[leftmargin=1.5em, itemsep=3pt]
+  \item Son âge à la souscription (âge atteint ou âge exact) ;
+  \item Son état de santé (questionnaire médical) ;
+  \item Sa quotité d'assurance $Q_i$ (exprimée en \% du capital emprunté) ;
+  \item Son statut tabagique.
+\end{itemize}
+
+\begin{infobox}
+\textbf{Règle fondamentale :} La somme des quotités de l'ensemble des co-emprunteurs doit être comprise entre $100\%$ et $200\%$. En cas de décès simultané, chaque quotité est appliquée indépendamment.
+\end{infobox}
+
+\subsection{Étendue territoriale et exclusions principales}
+
+La garantie est valable dans le monde entier, sous réserve des exclusions suivantes :
+
+\begin{itemize}[leftmargin=1.5em, itemsep=3pt]
+  \item Suicide au cours de la 1\iere{} année du contrat (délai légal de carence) ;
+  \item Décès résultant d'actes de guerre civile ou étrangère ;
+  \item Décès résultant d'opérations nucléaires ou de radiations ionisantes ;
+  \item Décès sous l'emprise manifeste de l'alcool (taux légal dépassé) ;
+  \item Pratique de sports extrêmes non déclarés à la souscription.
+\end{itemize}
+
+
+\section{Base de tarif}
+
+
+\subsection{Tables de mortalité de référence}
+
+Le tarif repose sur les tables réglementaires homologuées en France et en vigueur dans l'espace CIMA :
+
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{
+  >{\bfseries}p{3.8cm}
+  p{4.5cm}
+  p{4.5cm}
+}
+\toprule
+\rowcolor{darkblue}
+\color{white}Table & \color{white}Application & \color{white}Remarque \\
+\midrule
+\rowA Table CIMA Hommes & Emprunteurs hommes   & Table réglementaire CIMA obligatoire \\
+\rowB Table CIMA Femmes & Emprunteuses femmes  & Table distincte par sexe \\
+\rowA Table CIMA (toutes causes) & Portefeuille mixte & Base unique si non ventilé par sexe \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Taux technique}
+
+\textbf{Taux technique retenu : $i = 3{,}5\%$}. Ce taux correspond au rendement prudentiel des actifs adossés aux engagements, retenu conformément aux dispositions du Code CIMA.
+
+\begin{infobox}
+Le taux technique de $3{,}5\%$ est appliqué comme taux d'actualisation dans le calcul des primes pures, des rentes de survie et des provisions mathématiques. Il doit rester inférieur au plafond réglementaire fixé par la CIMA (généralement $60\%$ du taux moyen des actifs).
+\end{infobox}
+
+\subsection{Paramètres techniques généraux}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\linewidth}{X X}
+\toprule
+\rowcolor{darkblue}
+\color{white}\textbf{Paramètre} & \color{white}\textbf{Valeur / Modalité} \\
+\midrule
+\rowA Âge minimum à la souscription    & 18 ans révolus \\
+\rowB Âge maximum à la souscription    & 70 ans (âge atteint) \\
+\rowA Durée maximale de garantie       & 30 ans \\
+\rowB Âge fin de garantie              & 80 ans au plus \\
+\rowA Capital assuré maximum           & 1 500 000~€ (ou équivalent FCFA) \\
+\rowB Monnaie de référence             & EUR / XOF (taux fixe BCEAO) \\
+\rowA Base de calcul de l'âge          & Âge atteint dans l'année \\
+\rowB Nombre maximal de co-assurés     & 4 têtes par contrat \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+
+\section{Primes}
+
+
+\subsection{Sigles et abréviations}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\linewidth}{>{\ttfamily\bfseries\color{darkblue}}p{2.2cm} X}
+\toprule
+\rowcolor{darkblue}
+\color{white}\textbf{Sigle} & \color{white}\textbf{Définition} \\
+\midrule
+\rowA $x$       & Âge de l'assuré à la souscription (années révolues) \\
+\rowB $n$       & Durée du prêt / de la garantie en années \\
+\rowA $C_0$     & Capital initial emprunté \\
+\rowB $C_t$     & Capital Restant Dû (CRD) à l'instant $t$ \\
+\rowA $\qx{x}$  & Probabilité de décès entre les âges $x$ et $x+1$ (table CIMA) \\
+\rowB $\tpx{t}{x}$ & Probabilité de survie de $x$ jusqu'à $x+t$ \\
+\rowA $v$       & Facteur d'actualisation : $v = 1/(1+i)$, avec $i = 3{,}5\%$ \\
+\rowB $\PP_{x,n}$ & Prime Pure pour un assuré d'âge $x$ sur $n$ années \\
+\rowA $\PA_{x,n}$ & Prime Annuelle Nivelée pour un assuré d'âge $x$ sur $n$ années \\
+\rowB $\PI_{x,n}$ & Prime d'Inventaire \\
+\rowA $\PC_{x,n}$ & Prime Commerciale \\
+\rowB $\alpha$  & Taux de chargement en acquisition \\
+\rowA $\beta$   & Taux de chargement en gestion \\
+\rowB $\gamma$  & Taux de chargement pour profit / marge commerciale \\
+\rowA $Q_i$     & Quotité de l'assuré $i$ (en \%) \\
+\rowB $\CRD_t$  & Capital Restant Dû au temps $t$, après $t$ annuités \\
+\rowA $r$       & Taux d'intérêt annuel du prêt \\
+\rowB $m$       & Nombre de co-emprunteurs (têtes assurées) \\
+\rowA $\ax{n}{x}$ & Valeur actuarielle de la rente de survie en début de période \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+
+\subsection{Primes pures}
+
+
+La \textbf{prime pure} représente le coût actuariel pur de la garantie, sans aucun chargement. Elle est calculée comme l'espérance mathématique des capitaux à rembourser, actualisée à la date de souscription. Les probabilités de décès $\qx{x}$ sont extraites de la \textbf{table de mortalité CIMA} réglementaire.
+
+\subsubsection{Capital Restant Dû — Prêt amortissable à taux fixe}
+
+Pour un prêt à taux fixe $r$ et durée $n$ ans :
+
+\begin{formule}
+\begin{equation}
+  \CRD_t = C_0 \times \frac{(1+r)^n - (1+r)^t}{(1+r)^n - 1}
+  \label{eq:crd}
+\end{equation}
+\end{formule}
+
+\subsubsection{Prime pure — Assuré unique d'âge $x$, durée $n$}
+
+\begin{formule}
+\begin{equation}
+  \PP_{x,n} = \sum_{t=0}^{n-1} v^{\,t+1} \cdot \tpx{t}{x} \cdot \qx{x+t} \cdot \CRD_{t+1} \times Q_i
+  \label{eq:pp}
+\end{equation}
+\end{formule}
+
+\noindent avec la probabilité de survie :
+\[
+  \tpx{t}{x} = \prod_{k=0}^{t-1}\bigl(1 - \qx{x+k}\bigr), \quad \tpx{0}{x} = 1.
+\]
+
+\subsubsection{Extension multi-têtes ($m$ assurés)}
+
+Sous \textbf{hypothèse d'indépendance} des durées de vie (hypothèse standard de marché), la prime pure totale du contrat est :
+
+\begin{formule}
+\begin{equation}
+  \PP_{\mathrm{total}} = \sum_{i=1}^{m} \PP_{x_i,\,n} \cdot Q_i
+  \label{eq:pp_multi}
+\end{equation}
+\end{formule}
+
+\begin{infobox}
+\textbf{Hypothèse d'indépendance :} Les durées de vie des co-emprunteurs sont supposées stochastiquement indépendantes. Cette hypothèse simplifie le calcul et est conforme à la pratique de marché. En cas d'exposition à des risques communs (couple, activité professionnelle partagée), une correction par corrélation peut être envisagée.
+\end{infobox}
+
+
+\subsection{Primes annuelles nivelées}
+
+
+La \textbf{prime annuelle nivelée} (prime constante) est la prime unique équivalente répartie uniformément sur toute la durée du contrat.
+
+\subsubsection{Valeur actuarielle de la rente de survie}
+
+\begin{formule}
+\begin{equation}
+  \ax{n}{x} = \sum_{t=0}^{n-1} v^{\,t} \cdot \tpx{t}{x}
+  \label{eq:rente}
+\end{equation}
+\end{formule}
+
+\subsubsection{Formule de la prime annuelle nivelée}
+
+\begin{formule}
+\begin{equation}
+  \PA_{x,n} = \frac{\PP_{x,n}}{\ax{n}{x}}
+  \label{eq:pa}
+\end{equation}
+\end{formule}
+
+\noindent\textbf{Propriété d'équivalence actuarielle :}
+\[
+  \PA_{x,n} \times \ax{n}{x} = \PP_{x,n}
+\]
+
+Cette équation garantit que la valeur actuarielle des primes futures est égale à l'engagement de l'assureur à la date de souscription.
+
+
+\subsection{Primes d'inventaire}
+
+
+La \textbf{prime d'inventaire} est utilisée à des fins de \textbf{provisionnement comptable et réglementaire}. Elle intègre les chargements d'acquisition et de gestion, mais exclut la marge commerciale.
+
+\subsubsection{Formule}
+
+\begin{formule}
+\begin{equation}
+  \PI_{x,n} = \PP_{x,n} \times (1 + \alpha) + \beta \times \ax{n}{x}
+  \label{eq:pi}
+\end{equation}
+\end{formule}
+
+\noindent avec :
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+  \item $\alpha$ : chargement d'acquisition en proportion de la prime pure ;
+  \item $\beta$ : chargement de gestion annuel (en proportion ou en montant fixe).
+\end{itemize}
+
+\subsubsection{Prime d'inventaire multi-têtes}
+
+\begin{formule}
+\begin{equation}
+  \PI_{\mathrm{total}} = \sum_{i=1}^{m} \PI_{x_i,\,n} \cdot Q_i
+  \label{eq:pi_multi}
+\end{equation}
+\end{formule}
+
+\begin{infobox}
+\textbf{Rôle réglementaire :} La prime d'inventaire sert de base au calcul de la provision mathématique. Elle doit couvrir les engagements nets de chargements de gestion futurs, conformément à l'article 334 du Code CIMA.
+\end{infobox}
+
+
+\subsection{Prime commerciale}
+
+
+La \textbf{prime commerciale} est la prime effectivement facturée à l'assuré. Elle intègre l'ensemble des chargements, dont la marge bénéficiaire de l'assureur.
+
+\subsubsection{Structure des chargements}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{p{5cm} >{\centering\arraybackslash}p{3cm} >{\centering\arraybackslash}p{3cm}}
+\toprule
+\rowcolor{darkblue}
+\color{white}\textbf{Composante} &
+\color{white}\textbf{Notation} &
+\color{white}\textbf{Valeur indicative} \\
+\midrule
+\rowA Prime pure             & $\PP$              & Base de calcul \\
+\rowB Chargements d'acquisition & $\alpha \cdot \PP$ & 5\% à 15\% \\
+\rowA Chargements de gestion    & $\beta \cdot \ax{n}{x}$ & 2\% à 5\% \\
+\rowB Marge commerciale / profit & $\gamma \cdot \PP$ & 5\% à 20\% \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsubsection{Formule générale}
+
+\begin{formule}
+\begin{equation}
+  \PC_{x,n} = \PP_{x,n} \times (1 + \alpha + \gamma) + \beta \times \ax{n}{x}
+  \label{eq:pc}
+\end{equation}
+\end{formule}
+
+\subsubsection{Taux de prime commerciale (en \textperthousand{} du capital)}
+
+En pratique, la prime commerciale est exprimée en taux annuel pour 1\,000~€ de capital assuré :
+
+\begin{formule}
+\begin{equation}
+  \tau_{\PC} = \frac{\PC_{x,n}}{C_0} \times 1000 \quad [\text{en } \textperthousand]
+  \label{eq:taux_pc}
+\end{equation}
+\end{formule}
+
+
+\section{Provisionnement}
+
+
+\subsection{Provision mathématique}
+
+La provision mathématique ($\PM$) à la date d'inventaire $t$ représente la valeur actuarielle des engagements futurs de l'assureur, diminuée de la valeur actuarielle des primes futures à recevoir.
+
+\subsubsection{Méthode prospective — Assuré unique}
+
+\begin{formule}
+\begin{equation}
+  {}_t\PM_{x,n} = \PP_{x+t,\;n-t} - \PA_{x,n} \times \ax{n-t}{x+t}
+  \label{eq:pm}
+\end{equation}
+\end{formule}
+
+\noindent La provision est calculée prospectivement selon la méthode réglementaire recommandée par la CIMA.
+
+\subsubsection{Provision globale multi-têtes}
+
+\begin{formule}
+\begin{equation}
+  {}_t\PM_{\mathrm{total}} = \sum_{i=1}^{m} {}_t\PM_{x_i+t,\;n-t} \cdot Q_i
+  \label{eq:pm_multi}
+\end{equation}
+\end{formule}
+
+\subsection{Provision pour Sinistres à Payer (PSAP)}
+
+La PSAP couvre les sinistres survenus mais non encore réglés à la date de clôture. Elle est constituée dossier par dossier :
+
+\begin{formule}
+\begin{equation}
+  \mathrm{PSAP}_i = \CRD_\tau \times Q_i
+  \label{eq:psap}
+\end{equation}
+\end{formule}
+
+\noindent où $\tau$ est la date de survenance du sinistre.
+
+\subsection{Provision pour Risques en Cours (PRC)}
+
+La PRC est constituée lorsque la prime non acquise est insuffisante pour couvrir les risques restant à courir. Elle est calculée sur la base du \textbf{test de suffisance des primes (LAT)} :
+
+\begin{formule}
+\begin{equation}
+  \mathrm{PRC} = \max\!\bigl(0\,;\; \mathrm{BE}_{\mathrm{futur}} - \mathrm{PRNA}\bigr)
+  \label{eq:prc}
+\end{equation}
+\end{formule}
+
+\noindent avec : $\mathrm{BE}_{\mathrm{futur}}$ = Best Estimate des flux futurs ; $\mathrm{PRNA}$ = Provision pour Risques Non Acquis.
+
+\subsection{Tableau récapitulatif des provisions réglementaires}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\linewidth}{>{\bfseries}p{2cm} X >{\centering\arraybackslash}p{3cm}}
+\toprule
+\rowcolor{darkblue}
+\color{white}\textbf{Provision} &
+\color{white}\textbf{Base de calcul} &
+\color{white}\textbf{Fréquence} \\
+\midrule
+\rowA PM   & Méthode prospective (primes d'inventaire) & Annuelle \\
+\rowB PSAP & CRD $\times$ quotité — dossier par dossier & À chaque sinistre \\
+\rowA PRC  & LAT — Best Estimate IFRS 17 / Sol. 2 & Annuelle \\
+\rowB PPE  & Participation aux excédents différée & Le cas échéant \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+
+\section{Extrait de tarif — Application sur deux assurés}
+
+\subsection{Données du contrat}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{p{5.5cm} >{\centering\arraybackslash}p{3cm} >{\centering\arraybackslash}p{3cm}}
+\toprule
+\rowcolor{darkblue}
+\color{white}\textbf{Paramètre} &
+\color{white}\textbf{Assuré A} &
+\color{white}\textbf{Assuré B} \\
+\midrule
+\rowA Sexe                       & Homme         & Femme \\
+\rowB Âge à la souscription      & 40 ans        & 35 ans \\
+\rowA Quotité $Q_i$              & 60\%          & 40\% \\
+\rowB Capital emprunté $C_0$     & \multicolumn{2}{c}{100\,000\,000~FCFA} \\
+\rowA Durée du prêt $n$          & \multicolumn{2}{c}{20 ans} \\
+\rowB Taux d'intérêt prêt $r$    & \multicolumn{2}{c}{3,50\%} \\
+\rowA Table de mortalité         & \multicolumn{2}{c}{CIMA H (tous sexes — règle CIMA)} \\
+\rowB Taux technique $i$         & \multicolumn{2}{c}{$3{,}5\%$} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{infobox}
+\textbf{Règle CIMA — Zone Afrique :} En espace CIMA, la table de mortalité masculine \textbf{CIMA H (décès)} est appliquée à tous les assurés, quel que soit leur sexe, pour les produits de type décès emprunteur. Cette convention prudentielle garantit une tarification conservatrice conforme aux exigences réglementaires.
+\end{infobox}
+
+\subsection{Chargements appliqués}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{p{6cm} >{\centering\arraybackslash}p{4cm}}
+\toprule
+\rowcolor{darkblue}
+\color{white}\textbf{Type de chargement} & \color{white}\textbf{Taux retenu} \\
+\midrule
+\rowA Acquisition ($\alpha$)         & 10\% de la prime pure \\
+\rowB Gestion ($\beta$)              & 3\% de la prime pure \\
+\rowA Marge commerciale ($\gamma$)   & 10\% de la prime pure \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Résultats de tarification}
+
+\begin{infobox}
+\textbf{Note méthodologique :} Les calculs sont effectués avec un taux technique $i = 3{,}5\%$, un taux d'intérêt du prêt $r = 3{,}5\%$, et la \textbf{table de mortalité CIMA H} pour les deux assurés. Les primes pures sont calculées selon la formule exacte~\eqref{eq:pp} appliquée annuellement sur le capital restant dû.
+\end{infobox}
+
+\vspace{0.4em}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{p{5.5cm} >{\raggedleft\arraybackslash}p{3cm} >{\raggedleft\arraybackslash}p{3cm}}
+\toprule
+\rowcolor{darkblue}
+\color{white}\textbf{Indicateur} &
+\color{white}\textbf{Assuré A (H, 40)} &
+\color{white}\textbf{Assuré B (F, 35)} \\
+\midrule
+\rowA Prime Pure $\PP_{x,n}$ (pondérée $Q_i$) & 2\,691\,000~FCFA & 1\,280\,000~FCFA \\
+\rowB Rente de survie $\ax{20}{x}$ & 14,05 & 14,24 \\
+\rowA Prime Annuelle Nivelée $\PA$ & 192\,000~FCFA/an & 90\,000~FCFA/an \\
+\rowB Prime d'Inventaire $\PI$ & 216\,000~FCFA/an & 102\,000~FCFA/an \\
+\rowA \textbf{Prime Commerciale} $\PC$ & \textbf{236\,000~FCFA/an} & \textbf{111\,000~FCFA/an} \\
+\rowB Taux $\PC$ (en \textperthousand{} du capital) & 2,356~\textperthousand & 1,105~\textperthousand \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{0.6em}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{p{8cm} >{\raggedleft\arraybackslash}p{3.5cm}}
+\toprule
+\rowcolor{darkblue}
+\color{white}\textbf{PRIME COMMERCIALE TOTALE DU CONTRAT} &
+\color{white}\textbf{346\,000~FCFA/an} \\
+\midrule
+\rowcolor{lightblue}
+Taux moyen pondéré par quotité & 3,461~\textperthousand \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Provision mathématique — Évolution sur 5 jalons}
+
+\noindent\textit{Calcul de la PM totale du contrat par la méthode prospective proportionnelle au CRD ($i = 3{,}5\%$, table CIMA H) :}
+
+\vspace{0.2em}
+
+\begin{infobox}
+\textbf{Note sur la provision mathématique :} Lorsque le taux technique $i$ est égal au taux du prêt $r$, la provision mathématique prospective stricte $({}_t\PM = \PP_{\mathrm{résiduel}} - \PA \times \ddot{a}_{\mathrm{résiduel}})$ est nulle ou légèrement négative, ce qui reflète un contrat parfaitement équilibré. La provision présentée ci-dessous utilise l'approximation proportionnelle au CRD, couramment retenue en pratique actuarielle CIMA : ${}_t\PM_i = \PP_i^{(0)} \times \frac{\CRD_t}{C_0}$.
+\end{infobox}
+
+\vspace{0.4em}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.45}
+\begin{tabular}{
+  >{\centering\arraybackslash}p{1.5cm}
+  >{\raggedleft\arraybackslash}p{2.8cm}
+  >{\raggedleft\arraybackslash}p{2.8cm}
+  >{\raggedleft\arraybackslash}p{2.8cm}
+  >{\raggedleft\arraybackslash\bfseries}p{2.8cm}
+}
+\toprule
+\rowcolor{darkblue}
+\color{white}\textbf{Année $t$} &
+\color{white}\textbf{CRD (FCFA)} &
+\color{white}\textbf{PM Assuré A (FCFA)} &
+\color{white}\textbf{PM Assuré B (FCFA)} &
+\color{white}\textbf{PM Totale (FCFA)} \\
+\midrule
+\rowA 0  & 100\,000\,000 & 2\,691\,000 & 1\,280\,000 & 3\,971\,000 \\
+\rowB 1  &  96\,464\,000 & 2\,596\,000 & 1\,234\,000 & 3\,830\,000 \\
+\rowA 3  &  89\,016\,000 & 2\,395\,000 & 1\,139\,000 & 3\,535\,000 \\
+\rowB 5  &  81\,038\,000 & 2\,181\,000 & 1\,037\,000 & 3\,218\,000 \\
+\rowA 10 &  58\,517\,000 & 1\,575\,000 &   749\,000 & 2\,323\,000 \\
+\rowB 15 &  31\,768\,000 &   855\,000 &   407\,000 & 1\,261\,000 \\
+\rowA 20 &            0 &          0 &          0 &          0 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{infobox}
+\textbf{Interprétation :} La provision mathématique décroît proportionnellement au remboursement du capital. Elle représente à chaque date l'engagement résiduel de l'assureur, pondéré par la quotité de chaque assuré. En fin de contrat (année 20), elle s'annule conformément à la structure du prêt amortissable. La décroissance est plus rapide en fin de période car les montants de remboursement augmentent (amortissement progressif à taux fixe).
+\end{infobox}
+
+
+
+```{r}
+unlink(c("*.aux", "*.log", "*.out", "*.toc", "*.bbl", "*.blg", "*.synctex.gz"), recursive = TRUE)
+```
+
+

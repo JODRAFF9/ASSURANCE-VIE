@@ -1,0 +1,7 @@
+\babel@toc {french}{}\relax 
+\beamer@sectionintoc {1}{Introduction}{3}{0}{1}
+\beamer@sectionintoc {2}{État des lieux du secteur}{5}{0}{2}
+\beamer@sectionintoc {3}{Les technologies émergentes}{8}{0}{3}
+\beamer@sectionintoc {4}{Contrainte}{11}{0}{4}
+\beamer@sectionintoc {5}{Recommandation}{13}{0}{5}
+\beamer@sectionintoc {6}{Conclusion}{17}{0}{6}
