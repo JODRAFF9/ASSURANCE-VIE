@@ -262,11 +262,11 @@ options(OutDec = ",") # pour des sorties decimales avec , et non .
 
 \subsection{Objet du projet}
 
-Le présent document constitue la note technique du \textbf{produit d'assurance vie le plus commercialisé} sur la place de Dakar, identifié à l'issue d'une enquête menée auprès des institutions d'assurance vie. Il est accompagné de deux livrables complémentaires :
+Le présent document constitue la note technique du produit d'assurance vie le plus commercialisé sur la place de Dakar, identifié à l'issue d'une enquête menée auprès des institutions d'assurance vie. Il est accompagné de deux livrables complémentaires :
 
 \begin{itemize}[label=\ding{224}]
-  \item le \textbf{questionnaire d'enquête} ayant permis de recueillir les produits commercialisés et de constituer la base de données ;
-  \item le \textbf{simulateur Excel} qui met en œuvre la tarification du produit sur la base du personnel d'une entreprise sénégalaise.
+  \item le questionnaire d'enquête ayant permis de recueillir les produits commercialisés et de constituer la base de données ;
+  \item le simulateur Excel qui met en œuvre la tarification du produit sur la base du personnel d'une entreprise sénégalaise.
 \end{itemize}
 
 \subsection{Méthodologie de l'enquête}
@@ -295,15 +295,15 @@ Autres (rente éducation, mixte, \ldots) & 0/8 & 6\,\% \\
 \end{tabular}
 \end{table}
 
-Le contrat d'\textbf{Indemnités de Fin de Carrière (IFC)}, assorti de son extension décès \textbf{IFC Plus}, ressort comme le produit le plus commercialisé. Ce résultat est cohérent avec la structure du marché : la Convention Collective Nationale Interprofessionnelle (CCNI) du Sénégal impose à \emph{toutes} les entreprises le versement d'une indemnité de départ à la retraite, et le référentiel comptable (SYSCOHADA révisé, norme IAS 19 pour les groupes) impose la comptabilisation de ce passif social ; l'externalisation auprès d'un assureur vie est la réponse naturelle des entreprises. La présente note technique porte donc sur ce produit.
+Le contrat d'Indemnités de Fin de Carrière (IFC), assorti de son extension décès IFC Plus, ressort comme le produit le plus commercialisé. Ce résultat est cohérent avec la structure du marché : la Convention Collective Nationale Interprofessionnelle (CCNI) du Sénégal impose à \emph{toutes} les entreprises le versement d'une indemnité de départ à la retraite, et le référentiel comptable (SYSCOHADA révisé, norme IAS 19 pour les groupes) impose la comptabilisation de ce passif social ; l'externalisation auprès d'un assureur vie est la réponse naturelle des entreprises. La présente note technique porte donc sur ce produit.
 
 \section{Garanties}
 
 \subsection{Nature des garanties}
 
-\textbf{Volet IFC (épargne collective de passif social).} L'assureur constitue, gère et revalorise un fonds destiné au paiement des \textbf{indemnités de fin de carrière} dues par l'employeur à ses salariés lors du départ à la retraite (ou d'un licenciement), conformément à la CCNI du Sénégal. Le contrat comprend l'évaluation actuarielle du passif social (engagement global, dette actuarielle, charge normale, passif de l'indemnité de licenciement) et le règlement des prestations au fur et à mesure des départs.
+Volet IFC (épargne collective de passif social). L'assureur constitue, gère et revalorise un fonds destiné au paiement des indemnités de fin de carrière dues par l'employeur à ses salariés lors du départ à la retraite (ou d'un licenciement), conformément à la CCNI du Sénégal. Le contrat comprend l'évaluation actuarielle du passif social (engagement global, dette actuarielle, charge normale, passif de l'indemnité de licenciement) et le règlement des prestations au fur et à mesure des départs.
 
-\textbf{Volet IFC Plus (prévoyance décès).} En cas de décès d'un salarié en activité, l'assureur prend en charge l'\textbf{indemnité de décès} qui incombe à l'employeur au titre de la convention collective (indemnité de licenciement acquise majorée de l'indemnité de fin de carrière calculée sur le demi-salaire), quel que soit le nombre de décès survenant dans l'année.
+Volet IFC Plus (prévoyance décès). En cas de décès d'un salarié en activité, l'assureur prend en charge l'indemnité de décès qui incombe à l'employeur au titre de la convention collective (indemnité de licenciement acquise majorée de l'indemnité de fin de carrière calculée sur le demi-salaire), quel que soit le nombre de décès survenant dans l'année.
 
 \subsection{Personnes assurées}
 
@@ -312,21 +312,21 @@ L'ensemble du personnel salarié de l'entreprise souscriptrice, présent à la d
 \subsection{Cadre juridique et réglementaire}
 
 \begin{itemize}[label=\ding{224}]
-  \item \textbf{CCNI du Sénégal} : barème des indemnités de licenciement et de départ à la retraite en pourcentage du salaire global mensuel moyen, par année de présence ;
-  \item \textbf{Code du travail sénégalais} et régime IPRES : âge de départ à la retraite fixé à 60 ans ;
-  \item \textbf{Code CIMA} : bases techniques réglementaires (table de mortalité, plafonnement du taux technique, art. 338) et règles de provisionnement ;
-  \item \textbf{SYSCOHADA révisé / IAS 19} : obligation de comptabilisation des avantages postérieurs à l'emploi.
+  \item CCNI du Sénégal : barème des indemnités de licenciement et de départ à la retraite en pourcentage du salaire global mensuel moyen, par année de présence ;
+  \item Code du travail sénégalais et régime IPRES : âge de départ à la retraite fixé à 60 ans ;
+  \item Code CIMA : bases techniques réglementaires (table de mortalité, plafonnement du taux technique, art. 338) et règles de provisionnement ;
+  \item SYSCOHADA révisé / IAS 19 : obligation de comptabilisation des avantages postérieurs à l'emploi.
 \end{itemize}
 
 \section{Base de tarif}
 
 \subsection{Table de mortalité de référence}
 
-La probabilité de survie jusqu'à la retraite et la probabilité de décès en activité sont lues dans la \textbf{table réglementaire CIMA H} (art. 338 du code CIMA), utilisée pour les assurances en cas de vie et de décès dans la zone CIMA. La table figure dans la feuille \texttt{Table\_CIMA\_H} du simulateur, avec les nombres de commutation $D_x$, $N_x$, $C_x$, $M_x$ recalculés au taux technique.
+La probabilité de survie jusqu'à la retraite et la probabilité de décès en activité sont lues dans la table réglementaire CIMA H (art. 338 du code CIMA), utilisée pour les assurances en cas de vie et de décès dans la zone CIMA. La table figure dans la feuille \texttt{Table\_CIMA\_H} du simulateur, avec les nombres de commutation $D_x$, $N_x$, $C_x$, $M_x$ recalculés au taux technique.
 
 \subsection{Taux technique}
 
-Le taux d'actualisation retenu est $i = 3{,}5\,\%$, taux technique maximal autorisé par la réglementation CIMA. Il s'agit d'un minimum de revalorisation : le fonds IFC participe aux bénéfices financiers (85\,\%) et techniques (90\,\%) réalisés par l'assureur.
+Le taux d'actualisation retenu est $i = 3{,}5\,\%$, taux technique maximal autorisé par la réglementation CIMA. Il s'agit d'un minimum de revalorisation : le fonds IFC participe aux bénéfices financiers (85 \%) et techniques (90 \%) réalisés par l'assureur.
 
 \subsection{Paramètres techniques généraux}
 
@@ -353,7 +353,7 @@ Table de mortalité & CIMA H \\
 
 \subsection{Barème conventionnel des droits}
 
-Le droit à indemnité, exprimé en pourcentage du \textbf{salaire global mensuel moyen}, s'accroît avec l'ancienneté $a$ selon le barème CCNI :
+Le droit à indemnité, exprimé en pourcentage du salaire global mensuel moyen, s'accroît avec l'ancienneté $a$ selon le barème CCNI :
 
 \begin{table}[H]
 \centering
@@ -399,7 +399,7 @@ $B(\cdot)$ & barème cumulé des droits CCNI \\
 
 \subsection{Méthode prospective}
 
-La méthode utilisée est la \textbf{méthode prospective} (unités de crédit projetées) : les droits sont projetés au terme (salaire final, ancienneté au terme), pondérés par la probabilité d'être en vie et présent dans l'effectif au moment du départ, actualisés à la date d'évaluation, puis répartis au prorata de l'ancienneté acquise. Cette méthode a l'avantage de niveler l'engagement sur la durée totale probable de vie active du salarié dans l'entreprise.
+La méthode utilisée est la méthode prospective (unités de crédit projetées) : les droits sont projetés au terme (salaire final, ancienneté au terme), pondérés par la probabilité d'être en vie et présent dans l'effectif au moment du départ, actualisés à la date d'évaluation, puis répartis au prorata de l'ancienneté acquise. Cette méthode a l'avantage de niveler l'engagement sur la durée totale probable de vie active du salarié dans l'entreprise.
 
 \subsubsection{Salaire final et droits au terme}
 
@@ -423,7 +423,7 @@ La prestation, versée au départ à la retraite (positionné par convention au 
 $$ \mathrm{VAP} = \text{Droits} \times \underbrace{\frac{l_{60}}{l_x}}_{\text{probabilité vie}} \times \underbrace{p_{\text{prés}}}_{=1 \text{ si présent}} \times \underbrace{v^{\,n + 1/2}}_{\text{actualisation}} $$
 \end{formule}
 
-L'\textbf{engagement global} de l'entreprise est la somme des VAP individuelles : il intègre les engagements relatifs aux exercices antérieurs, à l'exercice en cours et aux exercices futurs.
+L'engagement global de l'entreprise est la somme des VAP individuelles : il intègre les engagements relatifs aux exercices antérieurs, à l'exercice en cours et aux exercices futurs.
 
 \subsubsection{Dette actuarielle et charge normale}
 
@@ -431,7 +431,7 @@ L'\textbf{engagement global} de l'entreprise est la somme des VAP individuelles 
 $$ \mathrm{DA} = \mathrm{VAP} \times \frac{a}{N_r} \qquad ; \qquad \mathrm{CN} = \frac{\mathrm{VAP}}{N_r} $$
 \end{formule}
 
-La \textbf{dette actuarielle} est la part de l'engagement correspondant aux droits déjà acquis (prorata d'ancienneté) par le personnel présent à la date d'évaluation ; la \textbf{charge normale} est la part de l'engagement relative à l'exercice en cours.
+La dette actuarielle est la part de l'engagement correspondant aux droits déjà acquis (prorata d'ancienneté) par le personnel présent à la date d'évaluation ; la charge normale est la part de l'engagement relative à l'exercice en cours.
 
 \subsubsection{Passif de l'indemnité de licenciement}
 
@@ -461,7 +461,7 @@ $$ \PP_{\mathrm{IFC+}} = \sum_{j=1}^{N} C_j \, q_{x_j} \qquad ; \qquad
 
 \subsection{Base de données de l'entreprise}
 
-L'entreprise souscriptrice retenue est \textbf{SENIA S.A.} (Sénégalaise des Industries Alimentaires), société installée dans la zone industrielle de Dakar. Sa base de personnel, soit 50 salariés répartis en cinq catégories professionnelles (cadres dirigeants, cadres, agents de maîtrise, employés, ouvriers), a été recueillie à l'aide de la fiche de collecte du volet D du questionnaire et figure \emph{in extenso} dans la feuille \texttt{BD} du simulateur.
+L'entreprise souscriptrice retenue est SENIA S.A. (Sénégalaise des Industries Alimentaires), société installée dans la zone industrielle de Dakar. Sa base de personnel, soit 50 salariés répartis en cinq catégories professionnelles (cadres dirigeants, cadres, agents de maîtrise, employés, ouvriers), a été recueillie à l'aide de la fiche de collecte du volet D du questionnaire et figure \emph{in extenso} dans la feuille \texttt{BD} du simulateur.
 
 \begin{table}[H]
 \centering
@@ -498,7 +498,7 @@ Passif de l'indemnité de licenciement & 7\,831\,464 \\
 \end{tabular}
 \end{table}
 
-L'\textbf{engagement global} de SENIA S.A. au 31/12/2025 s'élève à \textbf{230\,047\,411 FCFA}. La \textbf{dette actuarielle}, c'est-à-dire les droits déjà acquis par le personnel présent, s'élève à \textbf{111\,103\,527 FCFA}, soit environ 48\,\% de l'engagement, proportion cohérente avec le rapport entre ancienneté acquise (10,2 ans) et ancienneté au terme (28,1 ans en moyenne). La \textbf{charge normale} de l'exercice s'élève à \textbf{8\,223\,109 FCFA} et le \textbf{passif de l'indemnité de licenciement} à \textbf{7\,831\,464 FCFA}.
+L'engagement global de SENIA S.A. au 31/12/2025 s'élève à 230 047 411 FCFA. La dette actuarielle, c'est-à-dire les droits déjà acquis par le personnel présent, s'élève à 111 103 527 FCFA, soit environ 48 \% de l'engagement, proportion cohérente avec le rapport entre ancienneté acquise (10,2 ans) et ancienneté au terme (28,1 ans en moyenne). La charge normale de l'exercice s'élève à 8 223 109 FCFA et le passif de l'indemnité de licenciement à 7 831 464 FCFA.
 
 \subsection{Modalités de financement}
 
@@ -510,10 +510,10 @@ L'\textbf{engagement global} de SENIA S.A. au 31/12/2025 s'élève à \textbf{23
 \toprule
 \rowcolor{orange!45} \textbf{Option} & \textbf{Montant} \\
 \midrule
-\textbf{Option 1} : prime unique (engagement global + passif IL) & 237\,878\,875 \\
-\textbf{Option 2} : prime initiale égale à la dette actuarielle\ldots & 111\,103\,527 \\
+Option 1 : prime unique (engagement global + passif IL) & 237\,878\,875 \\
+Option 2 : prime initiale égale à la dette actuarielle\ldots & 111\,103\,527 \\
 \quad \ldots puis charge normale réglée annuellement & 8\,223\,109 \\
-\textbf{Option 3} : amortissement annuel de la dette sur 5 ans & 22\,220\,705 \\
+Option 3 : amortissement annuel de la dette sur 5 ans & 22\,220\,705 \\
 \quad prime annuelle sur 5 ans (amortissement + charge) & 30\,443\,814 \\
 \quad taux de prime uniforme (\% de la masse salariale) & 8,84\,\% \\
 \bottomrule
@@ -521,9 +521,9 @@ L'\textbf{engagement global} de SENIA S.A. au 31/12/2025 s'élève à \textbf{23
 \end{table}
 
 \begin{itemize}[label=\ding{224}]
-  \item l'\textbf{option 1} finance la totalité des engagements dès la souscription ;
-  \item l'\textbf{option 2} régularise immédiatement les droits acquis, le financement des droits futurs étant lissé par la charge normale ; une prime d'ajustement est déterminée lors des études périodiques (au minimum triennales) par différence entre la dette actuarielle nette actualisée et le montant du fonds ;
-  \item l'\textbf{option 3} étale la dette actuarielle sur cinq exercices, ce qui permet de déduire fiscalement l'intégralité de la prime comme charge de l'exercice.
+  \item l'option 1 finance la totalité des engagements dès la souscription ;
+  \item l'option 2 régularise immédiatement les droits acquis, le financement des droits futurs étant lissé par la charge normale ; une prime d'ajustement est déterminée lors des études périodiques (au minimum triennales) par différence entre la dette actuarielle nette actualisée et le montant du fonds ;
+  \item l'option 3 étale la dette actuarielle sur cinq exercices, ce qui permet de déduire fiscalement l'intégralité de la prime comme charge de l'exercice.
 \end{itemize}
 
 \subsection{Résultats du volet IFC Plus}
@@ -567,7 +567,7 @@ $\tau_s = 1\,\%$ & 196\,416\,468 & 99\,708\,639 & 7\,126\,067 \\
 \end{tabular}
 \end{table}
 
-L'engagement est \emph{décroissant} avec le taux technique (une hausse de 50 points de base le réduit d'environ 7,5\,\%) et \emph{croissant} avec le taux d'évolution des salaires (une hausse d'un point l'augmente d'environ 18\,\%) : la prudence commande donc un taux technique modéré et une hypothèse salariale réaliste, à revoir lors de chaque réactualisation.
+L'engagement est \emph{décroissant} avec le taux technique (une hausse de 50 points de base le réduit d'environ 7,5 \%) et \emph{croissant} avec le taux d'évolution des salaires (une hausse d'un point l'augmente d'environ 18 \%) : la prudence commande donc un taux technique modéré et une hypothèse salariale réaliste, à revoir lors de chaque réactualisation.
 
 \section{Le simulateur Excel}
 
