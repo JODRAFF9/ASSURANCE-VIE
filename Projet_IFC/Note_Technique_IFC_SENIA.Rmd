@@ -301,9 +301,9 @@ Le contrat d'Indemnités de Fin de Carrière (IFC), assorti de son extension dé
 
 \subsection{Nature des garanties}
 
-Volet IFC (épargne collective de passif social). L'assureur constitue, gère et revalorise un fonds destiné au paiement des indemnités de fin de carrière dues par l'employeur à ses salariés lors du départ à la retraite (ou d'un licenciement), conformément à la CCNI du Sénégal. Le contrat comprend l'évaluation actuarielle du passif social (engagement global, dette actuarielle, charge normale, passif de l'indemnité de licenciement) et le règlement des prestations au fur et à mesure des départs.
+Volet IFC (épargne collective de passif social) : l'assureur constitue, gère et revalorise un fonds destiné au paiement des indemnités de fin de carrière dues par l'employeur à ses salariés lors du départ à la retraite (ou d'un licenciement), conformément à la CCNI du Sénégal. Le contrat comprend l'évaluation actuarielle du passif social (engagement global, dette actuarielle, charge normale, passif de l'indemnité de licenciement) et le règlement des prestations au fur et à mesure des départs.
 
-Volet IFC Plus (prévoyance décès). En cas de décès d'un salarié en activité, l'assureur prend en charge l'indemnité de décès qui incombe à l'employeur au titre de la convention collective (indemnité de licenciement acquise majorée de l'indemnité de fin de carrière calculée sur le demi-salaire), quel que soit le nombre de décès survenant dans l'année.
+Volet IFC Plus (prévoyance décès) : en cas de décès d'un salarié en activité, l'assureur prend en charge l'indemnité de décès qui incombe à l'employeur au titre de la convention collective (indemnité de licenciement acquise majorée de l'indemnité de fin de carrière calculée sur le demi-salaire), quel que soit le nombre de décès survenant dans l'année.
 
 \subsection{Personnes assurées}
 
