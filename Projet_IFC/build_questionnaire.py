@@ -1,170 +1,319 @@
 # -*- coding: utf-8 -*-
-"""Génère le questionnaire d'enquête (Word) ayant permis de constituer la base."""
+"""Génère le questionnaire d'enquête (Word), format formulaire :
+cases à cocher (qualitatif), cases numériques |__| (quantitatif),
+sections encadrées et grilles de collecte."""
 import os
 
 from docx import Document
+from docx.enum.table import WD_TABLE_ALIGNMENT
 from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.oxml import OxmlElement
+from docx.oxml.ns import qn
 from docx.shared import Cm, Pt
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
+GRIS_FONCE = "404040"
+GRIS_CLAIR = "D9D9D9"
+GRIS_TRES_CLAIR = "F2F2F2"
+
 doc = Document()
 for section in doc.sections:
-    section.top_margin = Cm(2)
-    section.bottom_margin = Cm(2)
-    section.left_margin = Cm(2.2)
-    section.right_margin = Cm(2.2)
+    section.top_margin = Cm(1.8)
+    section.bottom_margin = Cm(1.8)
+    section.left_margin = Cm(2.0)
+    section.right_margin = Cm(2.0)
 
-style = doc.styles["Normal"]
-style.font.name = "Calibri"
-style.font.size = Pt(11)
+normal = doc.styles["Normal"]
+normal.font.name = "Calibri"
+normal.font.size = Pt(10.5)
+normal.paragraph_format.space_after = Pt(3)
 
 
-def title(text, size=16, center=True, space_after=6):
-    p = doc.add_paragraph()
-    run = p.add_run(text)
-    run.bold = True
-    run.font.size = Pt(size)
+# ---------------------------------------------------------------- utilitaires
+def shade(cell, color):
+    shd = OxmlElement("w:shd")
+    shd.set(qn("w:val"), "clear")
+    shd.set(qn("w:fill"), color)
+    cell._tc.get_or_add_tcPr().append(shd)
+
+
+def set_cell_text(cell, text, bold=False, size=10.5, color=None, center=False,
+                  italic=False):
+    cell.text = ""
+    p = cell.paragraphs[0]
     if center:
         p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p.paragraph_format.space_after = Pt(space_after)
+    run = p.add_run(text)
+    run.bold = bold
+    run.italic = italic
+    run.font.size = Pt(size)
+    if color:
+        from docx.shared import RGBColor
+        run.font.color.rgb = RGBColor.from_string(color)
+
+
+def repeat_header(row):
+    """Répète la ligne d'en-tête d'un tableau à chaque saut de page."""
+    trPr = row._tr.get_or_add_trPr()
+    tblHeader = OxmlElement("w:tblHeader")
+    tblHeader.set(qn("w:val"), "true")
+    trPr.append(tblHeader)
+
+
+def bandeau(text):
+    """Bandeau de section : tableau 1x1 grisé."""
+    tbl = doc.add_table(rows=1, cols=1)
+    tbl.style = "Table Grid"
+    tbl.alignment = WD_TABLE_ALIGNMENT.CENTER
+    cell = tbl.rows[0].cells[0]
+    set_cell_text(cell, text, bold=True, size=11.5, color="FFFFFF")
+    shade(cell, GRIS_FONCE)
+    doc.add_paragraph().paragraph_format.space_after = Pt(1)
+
+
+def boxes(n):
+    """Cases numériques : |__|__|__|"""
+    return "|" + "__|" * n
+
+
+def question(code, text, consigne=None):
+    p = doc.add_paragraph()
+    p.paragraph_format.space_before = Pt(6)
+    run = p.add_run(f"{code}. ")
+    run.bold = True
+    p.add_run(text)
+    if consigne:
+        r = p.add_run(f"   [{consigne}]")
+        r.italic = True
+        r.font.size = Pt(9)
     return p
 
 
-def h(text, size=13):
-    p = doc.add_paragraph()
-    run = p.add_run(text)
+def q_quali(code, text, options, multi=False, autre=False, cols=2):
+    """Question qualitative : cases à cocher, sur `cols` colonnes."""
+    question(code, text,
+             "plusieurs réponses possibles" if multi else "une seule réponse")
+    opts = list(options)
+    if autre:
+        opts.append("Autre, précisez : " + "." * 30)
+    nrows = (len(opts) + cols - 1) // cols
+    tbl = doc.add_table(rows=nrows, cols=cols)
+    for k, opt in enumerate(opts):
+        cell = tbl.rows[k % nrows].cells[k // nrows]
+        set_cell_text(cell, "☐  " + opt, size=10.5)
+    for row in tbl.rows:
+        row.height = Cm(0.5)
+
+
+def q_quanti(code, text, nboxes, unite="", virgule=0):
+    """Question quantitative : cases |__| + unité."""
+    p = question(code, text)
+    p.add_run("      ")
+    val = boxes(nboxes)
+    if virgule:
+        val += "," + boxes(virgule)[1:]
+    run = p.add_run(val)
     run.bold = True
-    run.font.size = Pt(size)
-    p.paragraph_format.space_before = Pt(10)
-    p.paragraph_format.space_after = Pt(4)
+    if unite:
+        p.add_run(f"  {unite}")
 
 
-def q(num, text, lines=1):
-    p = doc.add_paragraph()
-    run = p.add_run(f"Q{num}. ")
+def q_date(code, text):
+    p = question(code, text)
+    p.add_run("      ")
+    run = p.add_run("|__|__| / |__|__| / |__|__|__|__|")
     run.bold = True
-    p.add_run(text)
-    for _ in range(lines):
-        doc.add_paragraph("…" * 55)
+    p.add_run("  (JJ/MM/AAAA)")
 
 
-def case(text):
-    doc.add_paragraph("☐  " + text)
+def q_libre(code, text, lignes=1):
+    question(code, text, "réponse libre")
+    for _ in range(lignes):
+        p = doc.add_paragraph("." * 105)
+        p.paragraph_format.space_after = Pt(2)
 
 
-# ---------------------------------------------------------------------------
-title("ENSAE Pierre Ndiaye — ISE 3 — Méthodes actuarielles / Assurance vie", 11)
-title("PROJET I — ENQUÊTE AUPRÈS DES INSTITUTIONS D'ASSURANCE", 15)
-title("Questionnaire de recueil des produits d'assurance vie et de collecte des "
-      "données de tarification", 12)
+# ------------------------------------------------------------------- en-tête
+titre = doc.add_table(rows=3, cols=1)
+titre.style = "Table Grid"
+set_cell_text(titre.rows[0].cells[0],
+              "ENSAE Pierre Ndiaye — ISE 3 — Méthodes actuarielles / Assurance vie",
+              bold=True, size=11, center=True)
+shade(titre.rows[0].cells[0], GRIS_TRES_CLAIR)
+set_cell_text(titre.rows[1].cells[0],
+              "PROJET I — ENQUÊTE AUPRÈS DES INSTITUTIONS D'ASSURANCE",
+              bold=True, size=14, center=True, color="FFFFFF")
+shade(titre.rows[1].cells[0], GRIS_FONCE)
+set_cell_text(titre.rows[2].cells[0],
+              "Questionnaire de recueil des produits d'assurance vie et de collecte "
+              "des données de tarification\nEnquêteur : Sié Rachid Traoré — "
+              "Année académique 2025-2026",
+              size=10.5, center=True, italic=True)
+doc.add_paragraph()
+
+# fiche technique de l'entretien
+ft = doc.add_table(rows=2, cols=4)
+ft.style = "Table Grid"
+for j, (lbl, val) in enumerate([
+    ("N° du questionnaire", boxes(2)),
+    ("Date de l'entretien", "|__|__|/|__|__|/|__|__|__|__|"),
+    ("Heure de début", "|__|__| h |__|__|"),
+    ("Durée (min)", boxes(3)),
+]):
+    set_cell_text(ft.rows[0].cells[j], lbl, bold=True, size=9, center=True)
+    shade(ft.rows[0].cells[j], GRIS_CLAIR)
+    set_cell_text(ft.rows[1].cells[j], val, size=10, center=True)
+
 p = doc.add_paragraph()
-p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-r = p.add_run("Enquêteur : Sié Rachid Traoré — Année académique 2025-2026")
+p.paragraph_format.space_before = Pt(6)
+r = p.add_run("Mode de collecte :  ")
+r.bold = True
+p.add_run("☐ Face-à-face      ☐ Téléphone      ☐ En ligne")
+
+# consignes
+cons = doc.add_table(rows=1, cols=1)
+cons.style = "Table Grid"
+set_cell_text(
+    cons.rows[0].cells[0],
+    "CONSIGNES DE REMPLISSAGE\n"
+    "☐  cocher la (ou les) case(s) correspondante(s) — questions qualitatives ;\n"
+    "|__|  inscrire un chiffre par case — questions quantitatives ;\n"
+    "………  réponse libre (texte).\n"
+    "Confidentialité : les informations recueillies sont anonymisées et utilisées "
+    "à des fins strictement pédagogiques.",
+    size=9.5, italic=True)
+shade(cons.rows[0].cells[0], GRIS_TRES_CLAIR)
+doc.add_paragraph()
+
+# ------------------------------------------------------------------- VOLET A
+bandeau("VOLET A — IDENTIFICATION DE L'INSTITUTION")
+q_libre("A1", "Dénomination de la compagnie :")
+q_quali("A2", "Statut juridique :",
+        ["Société anonyme (SA)", "Mutuelle d'assurance",
+         "Filiale d'un groupe régional / international"], autre=True)
+q_quanti("A3", "Année d'agrément au Sénégal (branche vie) :", 4)
+q_quanti("A4", "Effectif total de la compagnie :", 4, "agents")
+q_quali("A5", "Fonction de la personne interrogée :",
+        ["Actuaire", "Directeur technique", "Souscripteur vie",
+         "Responsable commercial"], autre=True)
+
+# ------------------------------------------------------------------- VOLET B
+bandeau("VOLET B — PORTEFEUILLE DE PRODUITS VIE")
+q_quali("B1", "Quels produits d'assurance vie commercialisez-vous ?",
+        ["Indemnités de Fin de Carrière (IFC)",
+         "IFC Plus (décès du personnel — CCNI)",
+         "Temporaire décès individuelle",
+         "Décès emprunteur (crédit bancaire)",
+         "Épargne / capitalisation",
+         "Retraite complémentaire",
+         "Rente éducation / rente de conjoint",
+         "Mixte (épargne + décès)"],
+        multi=True, autre=True)
+
+question("B2", "Classez vos trois produits les plus commercialisés "
+               "(exercice 2025) :")
+tb = doc.add_table(rows=4, cols=3)
+tb.style = "Table Grid"
+for j, h in enumerate(["Rang", "Produit", "Primes émises 2025 (FCFA)"]):
+    set_cell_text(tb.rows[0].cells[j], h, bold=True, size=9.5, center=True)
+    shade(tb.rows[0].cells[j], GRIS_CLAIR)
+repeat_header(tb.rows[0])
+for i in range(1, 4):
+    set_cell_text(tb.rows[i].cells[0], f"n°{i}", center=True, size=10)
+    set_cell_text(tb.rows[i].cells[2], boxes(12), center=True, size=10)
+tb.columns[0].width = Cm(1.8)
+tb.columns[1].width = Cm(8.5)
+tb.columns[2].width = Cm(6.2)
+
+q_quanti("B3", "Part du produit n°1 dans les primes vie de la compagnie :",
+         2, "%", virgule=1)
+q_quanti("B4", "Nombre de contrats du produit n°1 en portefeuille :", 5)
+q_quali("B5", "Quelle clientèle porte principalement ce produit ?",
+        ["Grandes entreprises", "PME / PMI", "Institutions publiques",
+         "Particuliers"], multi=True)
+
+# ------------------------------------------------------------------- VOLET C
+bandeau("VOLET C — CARACTÉRISTIQUES TECHNIQUES DU PRODUIT LE PLUS COMMERCIALISÉ")
+q_quali("C1", "Convention de référence pour le calcul des droits :",
+        ["Convention Collective Nationale Interprofessionnelle (CCNI)",
+         "Convention collective sectorielle"], autre=True, cols=1)
+q_quali("C2", "Table de mortalité utilisée :",
+        ["CIMA H", "CIMA F", "Table d'expérience"], autre=True)
+q_quanti("C3", "Taux technique (max 3,5 % — art. 338 code CIMA) :", 1, "%",
+         virgule=2)
+q_quanti("C4", "Taux d'évolution des salaires (par défaut) :", 1, "%", virgule=2)
+q_quanti("C5", "Taux de turn-over (par défaut) :", 1, "%", virgule=2)
+q_quanti("C6", "Taux annuel de licenciement (par défaut) :", 1, "%", virgule=2)
+q_quanti("C7", "Chargements de gestion (en % des primes) :", 2, "%", virgule=1)
+q_quanti("C8", "Âge de départ à la retraite retenu (référence IPRES) :", 2, "ans")
+q_quali("C9", "Modalités de financement proposées à l'entreprise :",
+        ["Prime unique (engagement global)",
+         "Dette actuarielle + charge normale annuelle",
+         "Amortissement de la dette sur N exercices",
+         "Versements libres"], multi=True, cols=1)
+q_quanti("C9bis", "Si amortissement : durée proposée :", 2, "ans")
+q_quali("C10", "Le fonds participe-t-il aux bénéfices ?", ["Oui", "Non"])
+p = question("C10bis", "Si oui, à quelles hauteurs ?")
+p.add_run("   financiers : ")
+p.add_run(boxes(2) + " %").bold = True
+p.add_run("      techniques : ")
+p.add_run(boxes(2) + " %").bold = True
+q_quali("C11", "Fréquence recommandée de réactualisation de l'étude :",
+        ["Annuelle", "Triennale (minimum réglementaire du contrat)"],
+        autre=True)
+
+# ------------------------------------------------------------------- VOLET D
+bandeau("VOLET D — FICHE DE COLLECTE DES DONNÉES DU PERSONNEL "
+        "(entreprise souscriptrice)")
+doc.add_paragraph(
+    "Fiche remise à l'entreprise souhaitant souscrire le contrat. Les données "
+    "ci-dessous sont demandées pour CHAQUE salarié ; elles constituent la base "
+    "du simulateur (feuille « BD »)."
+)
+q_libre("D1", "Dénomination de l'entreprise :")
+q_libre("D2", "Secteur d'activité :")
+q_date("D3", "Date d'évaluation souhaitée (clôture d'exercice) :")
+q_quanti("D4", "Effectif total à la date d'évaluation :", 4, "salariés")
+q_quanti("D5", "Masse salariale annuelle brute :", 12, "FCFA")
+q_quanti("D6", "Nombre de mois de salaire par an :", 2, "(12 ou 13)")
+q_quali("D7", "Existe-t-il un fonds IFC déjà constitué ?", ["Oui", "Non"])
+q_quanti("D7bis", "Si oui, montant du fonds :", 12, "FCFA")
+
+question("D8", "Grille de recensement du personnel", "une ligne par salarié")
+grid = doc.add_table(rows=6, cols=6)
+grid.style = "Table Grid"
+heads = ["Matricule", "Sexe\n(M/F)", "Catégorie professionnelle*",
+         "Date de naissance\n(JJ/MM/AAAA)", "Date d'embauche\n(JJ/MM/AAAA)",
+         "Salaire mensuel brut\n(FCFA, bonus compris)"]
+for j, h in enumerate(heads):
+    set_cell_text(grid.rows[0].cells[j], h, bold=True, size=8.5, center=True)
+    shade(grid.rows[0].cells[j], GRIS_CLAIR)
+repeat_header(grid.rows[0])
+for i in range(1, 6):
+    for j in range(6):
+        grid.rows[i].cells[j].text = ""
+    grid.rows[i].height = Cm(0.55)
+p = doc.add_paragraph()
+r = p.add_run("* Cadre dirigeant / Cadre / Agent de maîtrise / Employé / Ouvrier "
+              "— joindre le fichier complet si l'effectif dépasse la grille.")
+r.font.size = Pt(8.5)
 r.italic = True
 
-doc.add_paragraph(
-    "Objet : recenser les produits d'assurance vie commercialisés sur la place de "
-    "Dakar, identifier le produit le plus commercialisé et collecter les éléments "
-    "techniques ainsi que les données de personnel nécessaires à la construction "
-    "d'une note technique et d'un simulateur de tarification."
-)
-doc.add_paragraph(
-    "Confidentialité : les informations recueillies sont strictement anonymisées et "
-    "utilisées à des fins pédagogiques uniquement."
-)
-
-# ---------------------------------------------------------------------------
-h("VOLET A — Identification de l'institution", 13)
-q(1, "Dénomination de la compagnie :")
-q(2, "Statut (SA, mutuelle, filiale de groupe régional…) :")
-q(3, "Année d'agrément au Sénégal (branche vie) :")
-q(4, "Fonction de la personne interrogée (actuaire, souscripteur, directeur technique…) :")
-
-h("VOLET B — Portefeuille de produits vie", 13)
-p = doc.add_paragraph()
-r = p.add_run("Q5. ")
-r.bold = True
-p.add_run("Quels produits d'assurance vie commercialisez-vous ? (cocher)")
-for lbl in [
-    "Indemnités de Fin de Carrière (IFC) / passif social entreprises",
-    "IFC Plus (couverture décès du personnel — indemnités CCNI)",
-    "Temporaire décès individuelle",
-    "Assurance décès emprunteur (crédit bancaire)",
-    "Épargne / capitalisation (capital différé)",
-    "Retraite complémentaire par capitalisation",
-    "Rente éducation / rente de conjoint",
-    "Mixte (épargne + décès)",
-    "Autre (préciser) : ………………………………",
-]:
-    case(lbl)
-q(6, "Classez vos trois produits les plus commercialisés par chiffre d'affaires "
-     "(primes émises) du dernier exercice :", 3)
-q(7, "Part approximative du produit n°1 dans les primes vie de la compagnie (%) :")
-q(8, "Quelle clientèle porte ce produit (grandes entreprises, PME, institutions, "
-     "particuliers) ?")
-
-h("VOLET C — Caractéristiques techniques du produit le plus commercialisé (IFC)", 13)
-q(9, "Quelle convention collective sert de référence au calcul des droits ?")
-q(10, "Quelle table de mortalité utilisez-vous ?  (CIMA H / CIMA F / autre)")
-q(11, "Quel taux technique (taux d'actualisation) appliquez-vous ? (max 3,5 % — art. 338 code CIMA)")
-q(12, "Quel taux d'évolution des salaires retenez-vous par défaut ?")
-q(13, "Quel taux de turn-over (rotation du personnel) retenez-vous par défaut ?")
-q(14, "Quel taux annuel de licenciement retenez-vous par défaut ?")
-q(15, "Quels chargements de gestion appliquez-vous (en % des primes) ?")
-q(16, "Quel âge de départ à la retraite retenez-vous (référence IPRES) ?")
-q(17, "Quelles modalités de financement proposez-vous à l'entreprise "
-      "(prime unique, dette actuarielle + charge normale, amortissement…) ?", 2)
-q(18, "Le fonds constitué participe-t-il aux bénéfices financiers et techniques ? "
-      "À quelles hauteurs ?")
-q(19, "À quelle fréquence recommandez-vous la réactualisation de l'étude actuarielle ?")
-
-h("VOLET D — Fiche de collecte des données du personnel (entreprise souscriptrice)", 13)
-doc.add_paragraph(
-    "Cette fiche est remise à l'entreprise souhaitant souscrire le contrat IFC. "
-    "Les informations ci-dessous sont demandées pour CHAQUE salarié ; elles "
-    "constituent la base de données utilisée par le simulateur (feuille « BD »)."
-)
-tbl = doc.add_table(rows=1, cols=2)
-tbl.style = "Table Grid"
-hdr = tbl.rows[0].cells
-hdr[0].text = "Champ demandé"
-hdr[1].text = "Format / précision"
-for champ, fmt in [
-    ("Matricule", "identifiant anonyme"),
-    ("Nom et prénoms", "facultatif (peut être anonymisé)"),
-    ("Sexe", "M / F"),
-    ("Catégorie professionnelle", "cadre dirigeant, cadre, agent de maîtrise, employé, ouvrier"),
-    ("Date de naissance", "JJ/MM/AAAA"),
-    ("Date d'embauche", "JJ/MM/AAAA"),
-    ("Salaire mensuel brut", "FCFA, bonus compris"),
-    ("Nombre de mois de salaire par an", "12 ou 13"),
-]:
-    row = tbl.add_row().cells
-    row[0].text = champ
-    row[1].text = fmt
-for row in tbl.rows:
-    for cell in row.cells:
-        for par in cell.paragraphs:
-            for run in par.runs:
-                run.font.size = Pt(10)
-
+# ---------------------------------------------------------------------- fin
 doc.add_paragraph()
-q(20, "Effectif total de l'entreprise à la date d'évaluation :")
-q(21, "Masse salariale annuelle brute (FCFA) :")
-q(22, "Date d'évaluation souhaitée (clôture d'exercice) :")
-q(23, "Existe-t-il un fonds IFC déjà constitué ? Si oui, quel montant ?")
-
-doc.add_paragraph()
-p = doc.add_paragraph()
-r = p.add_run(
+nb = doc.add_table(rows=1, cols=1)
+nb.style = "Table Grid"
+set_cell_text(
+    nb.rows[0].cells[0],
     "NB : l'enquête n'ayant pas pu être réalisée sur le terrain, les réponses au "
     "présent questionnaire ont été simulées de manière réaliste (8 compagnies vie "
     "fictives ; base de personnel de 50 salariés générée pour l'entreprise "
     "SENIA S.A.). Le produit ressorti comme le plus commercialisé est le contrat "
-    "d'Indemnités de Fin de Carrière (IFC), objet de la note technique."
-)
-r.italic = True
+    "d'Indemnités de Fin de Carrière (IFC), objet de la note technique.\n"
+    "Nous vous remercions de votre collaboration.",
+    size=9.5, italic=True)
+shade(nb.rows[0].cells[0], GRIS_TRES_CLAIR)
 
 out = os.path.join(HERE, "Questionnaire_enquete_IFC.docx")
 doc.save(out)
