@@ -1,5 +1,5 @@
 % Présentation du Projet I : enquête et note technique IFC
-% Beamer 16:9, style épuré
+% Beamer 16:9, plan de recherche
 \documentclass[aspectratio=169,11pt]{beamer}
 
 \usepackage[T1]{fontenc}
@@ -55,13 +55,12 @@
   \begin{frame}
     \begin{tikzpicture}[remember picture,overlay]
       \fill[orangeC] (current page.south west) rectangle (current page.north east);
-      \node[white,font=\Huge\bfseries,align=center] at (current page.center)
+      \node[white,font=\Huge\bfseries,align=center,text width=0.85\paperwidth] at (current page.center)
         {\insertsectionhead};
-      \node[orangeL,font=\large] at ([yshift=-1.6cm]current page.center)
-        {\insertsectionnumber\ /\ \totalvalue};
+      \node[orangeL,font=\large] at ([yshift=-1.9cm]current page.center)
+        {\insertsectionnumber\ /\ 4};
     \end{tikzpicture}
   \end{frame}}}
-\newcommand{\totalvalue}{5}
 
 \title{Enquête auprès des institutions d'assurance}
 \author{Groupe 1}
@@ -103,34 +102,110 @@
 % ---------------------------------------------------------------- plan
 \begin{frame}{Plan de la présentation}
   \vspace{0.3cm}
-  \begin{enumerate}\itemsep0.35cm
-    \item L'enquête et ses résultats
-    \item Le produit IFC / IFC+
-    \item Méthodologie d'évaluation
-    \item Application : SENIA S.A.
-    \item Le simulateur Excel
+  \begin{enumerate}\itemsep0.4cm
+    \item Contexte et objectifs
+    \item Méthodologie et données
+    \item Résultats des travaux : les livrables
+    \item Conclusion
   \end{enumerate}
 \end{frame}
 
 % ================================================================ SECTION 1
-\section{L'enquête et ses résultats}
+\section{Contexte et objectifs}
 
-\begin{frame}{Objectif et démarche}
+\begin{frame}{Contexte : un marché vie en pleine croissance}
   \vspace{0.2cm}
-  \textbf{Énoncé du projet :} recueillir les produits commercialisés par les
-  institutions d'assurance et produire la note technique du produit le plus
-  commercialisé.
+  \begin{columns}[T]
+    \begin{column}{0.60\textwidth}
+      \begin{itemize}\itemsep0.25cm
+        \item zone FANAF 2021 : 1\,488,6 Mds FCFA de primes, la vie
+              (549,6 Mds) croissant plus vite que le marché (+13,6\,\%) ;
+        \item au Sénégal, la vie accélère : 99,0 Mds de primes en 2023,
+              113,6 Mds en 2024, soit 38\,\% du marché national ;
+        \item indemnités de fin de carrière obligatoires (CCNI), à provisionner
+              (SYSCOHADA révisé, IAS 19) : l'externalisation auprès d'un
+              assureur vie s'impose aux entreprises.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.36\textwidth}
+      \stat{113,6 Mds}{de primes vie au Sénégal en 2024 (+14,8\,\%)}
+      \vspace{0.25cm}
+      \stat{346,1 Mds}{de provisions mathématiques vie fin 2024 (+16,4\,\%)}
+    \end{column}
+  \end{columns}
+  \vspace{0.1cm}
+  {\tiny Sources : FANAF, annuaire des sociétés membres 2026 (exercices 2023-2024) ; FANAF, Le marché de l'assurance en Afrique, données 2017 à 2021.}
+\end{frame}
+
+\begin{frame}{Objectifs du projet}
+  \vspace{0.2cm}
+  \textbf{Énoncé :} mener une enquête auprès des institutions d'assurance afin
+  de recueillir les produits commercialisés, puis produire la note technique du
+  produit le plus commercialisé.
   \vspace{0.3cm}
   \begin{itemize}\itemsep0.25cm
-    \item 8 compagnies d'assurance vie de la place de Dakar interrogées
-          (actuaire ou directeur technique) ;
-    \item questionnaire en 4 volets : identification, portefeuille de produits,
-          caractéristiques techniques, fiche de collecte des données du personnel ;
-    \item trois livrables : la note technique, le simulateur Excel et le questionnaire.
+    \item identifier le produit vie phare du marché et justifier ce choix par
+          les données de marché (FANAF) et par l'enquête ;
+    \item construire la note technique complète du produit : garanties, bases
+          techniques, méthodologie, tarification ;
+    \item livrer un simulateur Excel opérationnel appliqué à une entreprise
+          sénégalaise, alimenté par un questionnaire de collecte.
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Le produit le plus commercialisé}
+% ================================================================ SECTION 2
+\section{Méthodologie et données}
+
+\begin{frame}{Démarche de recherche}
+  \vspace{0.3cm}
+  \begin{enumerate}\itemsep0.35cm
+    \item \textbf{Revue du marché} : exploitation des rapports FANAF (annuaire
+          2026, brochure des marchés) : structure des primes vie, poids des
+          assurances collectives ;
+    \item \textbf{Enquête} : questionnaire administré à 8 compagnies vie de la
+          place de Dakar (volets A à C : identification, portefeuille,
+          caractéristiques techniques) ;
+    \item \textbf{Collecte des données de l'entreprise} : fiche de recensement
+          du personnel (volet D) auprès de SENIA S.A., 50 salariés ;
+    \item \textbf{Modélisation actuarielle} : méthode prospective, table CIMA H,
+          barème CCNI, taux technique de 3,5\,\%.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Les données de marché justifient le choix de l'IFC}
+  \vspace{0.2cm}
+  \begin{columns}[T]
+    \begin{column}{0.54\textwidth}
+      \footnotesize
+      \rowcolors{2}{white}{orangeL}
+      \begin{tabular}{lr}
+        \toprule
+        \rowcolor{orangeM} Indicateur (source FANAF) & Valeur \\
+        \midrule
+        Vie zone FANAF 2021 (+13,6\,\%) & 549,6 Mds \\
+        Vie Sénégal 2023 & 99,0 Mds \\
+        Vie Sénégal 2024 (+14,8\,\%) & 113,6 Mds \\
+        Part de la vie au Sénégal (2024) & 38\,\% \\
+        Provisions mathématiques vie (2024) & 346,1 Mds \\
+        Collectives dans la vie (2023) & 63,5\,\% \\
+        \bottomrule
+      \end{tabular}
+    \end{column}
+    \begin{column}{0.42\textwidth}
+      \stat{63,5\,\%}{des primes vie sénégalaises proviennent des assurances
+      collectives}
+      \vspace{0.15cm}
+      {\footnotesize Les contrats collectifs d'entreprise, dont l'IFC, dominent
+      la branche vie ; même dynamique en Côte d'Ivoire, premier marché de la
+      zone (31,1\,\%).}
+    \end{column}
+  \end{columns}
+  {\tiny Montants en FCFA. Sources : FANAF, annuaire des sociétés membres 2026
+  (exercices 2023-2024) ; FANAF, brochure des marchés 2017-2021 ; chiffres 2023
+  du marché sénégalais.}
+\end{frame}
+
+\begin{frame}{L'enquête confirme : l'IFC produit n°1}
   \vspace{0.2cm}
   \begin{columns}[T]
     \begin{column}{0.58\textwidth}
@@ -150,50 +225,25 @@
       \end{tabular}
     \end{column}
     \begin{column}{0.38\textwidth}
-      \stat{IFC / IFC+}{produit vie n\textsuperscript{o}1 du marché}
+      \stat{5 / 8}{compagnies classent l'IFC en tête de leurs primes vie}
       \vspace{0.25cm}
-      {\small Un marché porté par l'obligation conventionnelle (CCNI) et
-      comptable (SYSCOHADA révisé, IAS 19) de provisionner le passif social.}
+      {\small Convergence des trois faisceaux : données de marché,
+      obligations réglementaires et déclarations des assureurs.}
     \end{column}
   \end{columns}
 \end{frame}
 
-% ================================================================ SECTION 2
-\section{Le produit IFC / IFC+}
-
-\begin{frame}{Garanties du contrat}
-  \vspace{0.2cm}
-  \begin{columns}[T]
-    \begin{column}{0.48\textwidth}
-      \begin{block}{Volet IFC}
-        Constitution et gestion du fonds destiné au paiement des indemnités de
-        fin de carrière dues au départ à la retraite, avec évaluation
-        actuarielle du passif social.
-      \end{block}
-    \end{column}
-    \begin{column}{0.48\textwidth}
-      \begin{block}{Volet IFC Plus}
-        Prise en charge de l'indemnité de décès due par l'employeur en cas de
-        décès d'un salarié en activité, sans limitation du nombre de décès
-        dans l'année.
-      \end{block}
-    \end{column}
-  \end{columns}
-  \vspace{0.4cm}
-  \textbf{Assurés :} l'ensemble du personnel salarié, adhésion collective,
-  sans sélection médicale.
-\end{frame}
-
-\begin{frame}{Cadre réglementaire et bases techniques}
+\begin{frame}{Données et bases techniques retenues}
   \vspace{0.2cm}
   \begin{columns}[T]
     \begin{column}{0.46\textwidth}
-      \textcolor{orangeC}{\textbf{Cadre juridique}}
+      \textcolor{orangeC}{\textbf{Données mobilisées}}
       \begin{itemize}\itemsep0.15cm
-        \item CCNI du Sénégal : barème des indemnités ;
-        \item code du travail et IPRES : retraite à 60 ans ;
-        \item code CIMA (art. 338) : bases techniques ;
-        \item SYSCOHADA révisé / IAS 19.
+        \item réponses des 8 compagnies (volets A à C) ;
+        \item base du personnel de SENIA S.A. : 50 salariés, masse salariale
+              de 344,4 M FCFA ;
+        \item barème CCNI des droits (20 à 60\,\% par année) ;
+        \item table de mortalité CIMA H.
       \end{itemize}
     \end{column}
     \begin{column}{0.50\textwidth}
@@ -203,7 +253,8 @@
         \toprule
         \rowcolor{orangeM} Paramètre & Valeur \\
         \midrule
-        Table de mortalité & CIMA H \\
+        Date d'évaluation & 31/12/2025 \\
+        Âge de retraite (IPRES) & 60 ans \\
         Taux technique & 3,5\,\% \\
         Évolution des salaires & 2,0\,\% \\
         Turn-over & 2,0\,\% \\
@@ -215,33 +266,7 @@
   \end{columns}
 \end{frame}
 
-\begin{frame}{Barème CCNI des droits}
-  \vspace{0.2cm}
-  Droit exprimé en \% du salaire global mensuel moyen, par année de présence :
-  \vspace{0.3cm}
-  \begin{center}
-    \rowcolors{2}{white}{orangeL}
-    \begin{tabular}{lc}
-      \toprule
-      \rowcolor{orangeM} Tranche d'ancienneté & Droit par année \\
-      \midrule
-      Années 1 à 5 & 20\,\% \\
-      Années 6 à 10 & 30\,\% \\
-      Années 11 à 15 & 40\,\% \\
-      Années 16 à 20 & 50\,\% \\
-      Au-delà de 20 ans & 60\,\% \\
-      \bottomrule
-    \end{tabular}
-  \end{center}
-  \vspace{0.2cm}
-  \small Cumul $B(a)$ obtenu par sommation, avec interpolation linéaire pour
-  les anciennetés non entières.
-\end{frame}
-
-% ================================================================ SECTION 3
-\section{Méthodologie d'évaluation}
-
-\begin{frame}{Méthode prospective}
+\begin{frame}{Méthode actuarielle : la méthode prospective}
   \vspace{0.2cm}
   Droits projetés au terme, probabilisés, actualisés, puis répartis au prorata
   de l'ancienneté.
@@ -278,28 +303,34 @@
   \end{block}
 \end{frame}
 
-% ================================================================ SECTION 4
-\section{Application : SENIA S.A.}
+% ================================================================ SECTION 3
+\section{Résultats des travaux : les livrables}
 
-\begin{frame}{Le groupe assuré au 31/12/2025}
-  \vspace{0.3cm}
+\begin{frame}{Livrable 1 : la note technique}
+  \vspace{0.2cm}
   \begin{columns}[T]
-    \begin{column}{0.31\textwidth}\stat{50}{salariés, 5 catégories}\end{column}
-    \begin{column}{0.31\textwidth}\stat{344,4 M}{masse salariale (FCFA)}\end{column}
-    \begin{column}{0.31\textwidth}\stat{42,2 ans}{âge moyen}\end{column}
+    \begin{column}{0.50\textwidth}
+      \textcolor{orangeC}{\textbf{Contenu}}
+      \begin{itemize}\itemsep0.15cm
+        \item démarche d'enquête et résultat ;
+        \item garanties IFC et IFC+ ;
+        \item cadre juridique et bases de tarif ;
+        \item méthodologie et formules ;
+        \item application chiffrée à SENIA S.A. ;
+        \item modalités de financement et sensibilité.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.46\textwidth}
+      \stat{10 pages}{de note technique, avec annexe sur la base du personnel}
+      \vspace{0.25cm}
+      {\small Rédigée selon le canevas professionnel des évaluations de passif
+      social : engagement global, dette actuarielle, charge normale, passif de
+      licenciement.}
+    \end{column}
   \end{columns}
-  \vspace{0.35cm}
-  \begin{columns}[T]
-    \begin{column}{0.31\textwidth}\stat{10,2 ans}{ancienneté moyenne}\end{column}
-    \begin{column}{0.31\textwidth}\stat{17,8 ans}{durée résiduelle moyenne}\end{column}
-    \begin{column}{0.31\textwidth}\stat{60 ans}{âge de départ (IPRES)}\end{column}
-  \end{columns}
-  \vspace{0.35cm}
-  \small Base recueillie auprès de l'entreprise à l'aide de la fiche de
-  collecte du questionnaire (volet D).
 \end{frame}
 
-\begin{frame}{Résultats de l'évaluation IFC}
+\begin{frame}{Résultats de l'évaluation au 31/12/2025}
   \vspace{0.2cm}
   \begin{columns}[T]
     \begin{column}{0.56\textwidth}
@@ -318,74 +349,51 @@
     \begin{column}{0.40\textwidth}
       \stat{230 M FCFA}{d'engagement global}
       \vspace{0.2cm}
-      {\small La dette actuarielle représente 48\,\% de l'engagement,
-      en cohérence avec le prorata d'ancienneté (10,2 / 28,1 ans).}
+      {\small La dette actuarielle représente 48\,\% de l'engagement, en
+      cohérence avec le prorata d'ancienneté (10,2 / 28,1 ans).}
     \end{column}
   \end{columns}
 \end{frame}
 
-\begin{frame}{Modalités de financement}
-  \vspace{0.2cm}
-  \rowcolors{2}{orangeL}{white}
-  \begin{tabular}{lr}
-    \toprule
-    \rowcolor{orangeM} Option & FCFA \\
-    \midrule
-    Option 1 : prime unique (engagement + passif IL) & 237\,878\,875 \\
-    Option 2 : dette actuarielle à la souscription\ldots & 111\,103\,527 \\
-    \quad\ldots puis charge normale annuelle & 8\,223\,109 \\
-    Option 3 : amortissement de la dette sur 5 ans & 22\,220\,705 \\
-    \quad prime annuelle sur 5 ans & 30\,443\,814 \\
-    \bottomrule
-  \end{tabular}
-  \vspace{0.3cm}
-
-  \small L'option 3 (taux de prime uniforme de 8,84\,\% de la masse salariale)
-  permet la déduction fiscale intégrale de la prime ; réactualisation de
-  l'étude au minimum tous les trois ans.
-\end{frame}
-
-\begin{frame}{Volet IFC+ et sensibilité}
+\begin{frame}{Modalités de financement et volet IFC+}
   \vspace{0.2cm}
   \begin{columns}[T]
-    \begin{column}{0.44\textwidth}
-      \textcolor{orangeC}{\textbf{Tarification IFC+ (an 1)}}\\[0.15cm]
+    \begin{column}{0.54\textwidth}
+      \small
+      \rowcolors{2}{orangeL}{white}
+      \begin{tabular}{lr}
+        \toprule
+        \rowcolor{orangeM} Option de financement & FCFA \\
+        \midrule
+        1 : prime unique & 237\,878\,875 \\
+        2 : dette actuarielle\ldots & 111\,103\,527 \\
+        \quad\ldots puis charge annuelle & 8\,223\,109 \\
+        3 : prime annuelle sur 5 ans & 30\,443\,814 \\
+        \bottomrule
+      \end{tabular}
+      \vspace{0.2cm}
+
+      {\small Option 3 : 8,84\,\% de la masse salariale, prime fiscalement
+      déductible en totalité.}
+    \end{column}
+    \begin{column}{0.42\textwidth}
       \small
       \rowcolors{2}{white}{orangeL}
       \begin{tabular}{lr}
         \toprule
-        \rowcolor{orangeM} Rubrique & Valeur \\
+        \rowcolor{orangeM} IFC+ (an 1) & Valeur \\
         \midrule
         Capitaux garantis & 161\,949\,480 \\
         Prime commerciale & 1\,203\,354 \\
         Taux / capitaux & 0,74\,\% \\
-        Taux / masse salariale & 0,35\,\% \\
-        \bottomrule
-      \end{tabular}
-    \end{column}
-    \begin{column}{0.52\textwidth}
-      \textcolor{orangeC}{\textbf{Sensibilité de l'engagement}}\\[0.15cm]
-      \small
-      \rowcolors{2}{white}{orangeL}
-      \begin{tabular}{lr}
-        \toprule
-        \rowcolor{orangeM} Scénario & Engagement (FCFA) \\
-        \midrule
-        Central ($i=3{,}5\,\%$, $\tau_s=2\,\%$) & 230\,047\,411 \\
-        $i=3{,}0\,\%$ & 249\,478\,037 \\
-        $i=4{,}0\,\%$ & 212\,687\,421 \\
-        $\tau_s=3\,\%$ & 271\,442\,252 \\
-        $\tau_s=1\,\%$ & 196\,416\,468 \\
+        Taux / masse & 0,35\,\% \\
         \bottomrule
       \end{tabular}
     \end{column}
   \end{columns}
 \end{frame}
 
-% ================================================================ SECTION 5
-\section{Le simulateur Excel}
-
-\begin{frame}{Organisation du classeur}
+\begin{frame}{Livrable 2 : le simulateur Excel}
   \vspace{0.2cm}
   \rowcolors{2}{orangeL}{white}
   \begin{tabular}{ll}
@@ -403,19 +411,51 @@
   \vspace{0.3cm}
 
   \small Formules vivantes de bout en bout : toute modification d'une hypothèse
-  ou de la base se propage jusqu'à la synthèse ; le simulateur est réutilisable
-  pour toute autre entreprise.
+  ou de la base se propage jusqu'à la synthèse ; réutilisable pour toute autre
+  entreprise. Sensibilité testée : engagement de 196,4 à 271,4 M FCFA selon les
+  hypothèses de taux et de salaires.
 \end{frame}
+
+\begin{frame}{Livrable 3 : le questionnaire d'enquête}
+  \vspace{0.2cm}
+  \begin{columns}[T]
+    \begin{column}{0.50\textwidth}
+      \textcolor{orangeC}{\textbf{Quatre volets}}
+      \begin{itemize}\itemsep0.15cm
+        \item A : identification de l'institution ;
+        \item B : portefeuille de produits vie et classement ;
+        \item C : caractéristiques techniques du produit n°1 ;
+        \item D : fiche de collecte des données du personnel.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.46\textwidth}
+      \textcolor{orangeC}{\textbf{Format formulaire}}
+      \begin{itemize}\itemsep0.15cm
+        \item cases à cocher pour le qualitatif ;
+        \item cases numériques pour le quantitatif ;
+        \item grille de recensement du personnel ;
+        \item consignes de remplissage et confidentialité.
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ================================================================ SECTION 4
+\section{Conclusion}
 
 \begin{frame}{Conclusion}
   \vspace{0.3cm}
   \begin{itemize}\itemsep0.3cm
-    \item L'IFC est le produit vie le plus commercialisé de la place, porté par
-          les obligations conventionnelles et comptables des entreprises ;
+    \item les données FANAF et l'enquête convergent : l'IFC, porté par la
+          domination des assurances collectives (63,5\,\% des primes vie au
+          Sénégal), est le produit vie le plus commercialisé ;
     \item la méthode prospective fournit un passif social complet : engagement
-          global, dette actuarielle, charge normale et passif de licenciement ;
-    \item trois modalités de financement adaptées à la situation de l'entreprise ;
-    \item un simulateur opérationnel, alimenté par le questionnaire de collecte.
+          global de 230 M FCFA pour SENIA S.A., dette actuarielle de 111,1 M,
+          charge normale de 8,2 M et passif de licenciement de 7,8 M ;
+    \item trois modalités de financement au choix de l'entreprise et une
+          couverture décès IFC+ à 0,35\,\% de la masse salariale ;
+    \item trois livrables opérationnels : la note technique, le simulateur
+          Excel et le questionnaire de collecte.
   \end{itemize}
 \end{frame}
 
