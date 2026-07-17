@@ -1,0 +1,433 @@
+% Présentation du Projet I : enquête et note technique IFC
+% Beamer 16:9, style épuré
+\documentclass[aspectratio=169,11pt]{beamer}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{tikz}
+\usepackage{amsmath,amssymb}
+
+% ---------------------------------------------------------------- couleurs
+\definecolor{orangeC}{HTML}{C55A11}
+\definecolor{orangeM}{HTML}{F4B183}
+\definecolor{orangeL}{HTML}{FDEADA}
+\definecolor{encre}{HTML}{3B3B3B}
+\definecolor{creme}{HTML}{FFFDFA}
+
+% ---------------------------------------------------------------- thème
+\usetheme{default}
+\setbeamertemplate{navigation symbols}{}
+\setbeamercolor{normal text}{fg=encre,bg=creme}
+\setbeamercolor{structure}{fg=orangeC}
+\setbeamercolor{frametitle}{fg=white,bg=orangeC}
+\setbeamerfont{frametitle}{series=\bfseries,size=\large}
+\setbeamertemplate{frametitle}{%
+  \vspace*{0.25cm}%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=0.85cm,dp=0.3cm,leftskip=0.8cm]{frametitle}
+    \usebeamerfont{frametitle}\insertframetitle
+  \end{beamercolorbox}}
+\setbeamertemplate{itemize item}{\textcolor{orangeC}{\raisebox{0.08em}{\rule{0.5em}{0.5em}}}}
+\setbeamertemplate{itemize subitem}{\textcolor{orangeM}{\raisebox{0.08em}{\rule{0.4em}{0.4em}}}}
+\setbeamertemplate{footline}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=0.5cm,dp=0.2cm,leftskip=0.8cm,rightskip=0.8cm]{footline}
+    \color{encre}\scriptsize Groupe 1 \hfill Cours d'Assurance Vie, ENSAE ISE 3
+    \hfill \insertframenumber\,/\,\inserttotalframenumber
+  \end{beamercolorbox}}
+\setbeamercolor{block title}{fg=white,bg=orangeC}
+\setbeamercolor{block body}{fg=encre,bg=orangeL}
+\setbeamertemplate{blocks}[rounded]
+
+% grand chiffre façon vignette
+\newcommand{\stat}[2]{%
+  \begin{beamercolorbox}[wd=\linewidth,ht=1.5cm,dp=0.8cm,center,rounded=true]{statbox}%
+    \centering{\LARGE\bfseries\textcolor{orangeC}{#1}}\\[0.15cm]
+    {\small\textcolor{encre}{#2}}%
+  \end{beamercolorbox}}
+\setbeamercolor{statbox}{bg=orangeL}
+
+% pages de section
+\AtBeginSection[]{%
+  {\setbeamertemplate{footline}{}%
+  \begin{frame}
+    \begin{tikzpicture}[remember picture,overlay]
+      \fill[orangeC] (current page.south west) rectangle (current page.north east);
+      \node[white,font=\Huge\bfseries,align=center] at (current page.center)
+        {\insertsectionhead};
+      \node[orangeL,font=\large] at ([yshift=-1.6cm]current page.center)
+        {\insertsectionnumber\ /\ \totalvalue};
+    \end{tikzpicture}
+  \end{frame}}}
+\newcommand{\totalvalue}{5}
+
+\title{Enquête auprès des institutions d'assurance}
+\author{Groupe 1}
+\date{Juillet 2026}
+
+\begin{document}
+
+% ---------------------------------------------------------------- titre
+{\setbeamertemplate{footline}{}%
+\begin{frame}
+  \begin{tikzpicture}[remember picture,overlay]
+    \fill[orangeC] (current page.north west) rectangle
+      ([yshift=-2.9cm]current page.north east);
+    \fill[orangeM] ([yshift=-2.9cm]current page.north west) rectangle
+      ([yshift=-3.05cm]current page.north east);
+    \node[white,font=\bfseries\Large,align=center] at
+      ([yshift=-1.15cm]current page.north) {ENQUÊTE AUPRÈS DES INSTITUTIONS D'ASSURANCE};
+    \node[white,font=\normalsize,align=center] at
+      ([yshift=-2.15cm]current page.north)
+      {Note technique du produit le plus commercialisé :\ l'Indemnité de Fin de Carrière (IFC / IFC+)};
+  \end{tikzpicture}
+  \vspace{2.4cm}
+  \begin{columns}[T]
+    \begin{column}{0.52\textwidth}
+      {\color{orangeC}\itshape Présenté par le Groupe 1 :}\\[0.2cm]
+      Gado Giovanni Jocelyn\\
+      Alagbe Abdou Hamid\\
+      Sié Rachid Traoré\\
+      Cheikh Sadibou Ngom
+    \end{column}
+    \begin{column}{0.42\textwidth}
+      {\color{orangeC}\itshape Sous la supervision de :}\\[0.2cm]
+      Mme Fatou Diop\\[0.5cm]
+      {\small Cours d'Assurance Vie\\ ENSAE Pierre Ndiaye, ISE 3\\ Juillet 2026}
+    \end{column}
+  \end{columns}
+\end{frame}}
+
+% ---------------------------------------------------------------- plan
+\begin{frame}{Plan de la présentation}
+  \vspace{0.3cm}
+  \begin{enumerate}\itemsep0.35cm
+    \item L'enquête et ses résultats
+    \item Le produit IFC / IFC+
+    \item Méthodologie d'évaluation
+    \item Application : SENIA S.A.
+    \item Le simulateur Excel
+  \end{enumerate}
+\end{frame}
+
+% ================================================================ SECTION 1
+\section{L'enquête et ses résultats}
+
+\begin{frame}{Objectif et démarche}
+  \vspace{0.2cm}
+  \textbf{Énoncé du projet :} recueillir les produits commercialisés par les
+  institutions d'assurance et produire la note technique du produit le plus
+  commercialisé.
+  \vspace{0.3cm}
+  \begin{itemize}\itemsep0.25cm
+    \item 8 compagnies d'assurance vie de la place de Dakar interrogées
+          (actuaire ou directeur technique) ;
+    \item questionnaire en 4 volets : identification, portefeuille de produits,
+          caractéristiques techniques, fiche de collecte des données du personnel ;
+    \item trois livrables : la note technique, le simulateur Excel et le questionnaire.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Le produit le plus commercialisé}
+  \vspace{0.2cm}
+  \begin{columns}[T]
+    \begin{column}{0.58\textwidth}
+      \small
+      \rowcolors{2}{white}{orangeL}
+      \begin{tabular}{lcc}
+        \toprule
+        \rowcolor{orangeM} Produit & Cité n\textsuperscript{o}1 & Part moyenne \\
+        \midrule
+        IFC / IFC+ & 5/8 & 34\,\% \\
+        Décès emprunteur & 2/8 & 22\,\% \\
+        Épargne / capitalisation & 1/8 & 18\,\% \\
+        Temporaire décès & 0/8 & 11\,\% \\
+        Retraite complémentaire & 0/8 & 9\,\% \\
+        Autres & 0/8 & 6\,\% \\
+        \bottomrule
+      \end{tabular}
+    \end{column}
+    \begin{column}{0.38\textwidth}
+      \stat{IFC / IFC+}{produit vie n\textsuperscript{o}1 du marché}
+      \vspace{0.25cm}
+      {\small Un marché porté par l'obligation conventionnelle (CCNI) et
+      comptable (SYSCOHADA révisé, IAS 19) de provisionner le passif social.}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ================================================================ SECTION 2
+\section{Le produit IFC / IFC+}
+
+\begin{frame}{Garanties du contrat}
+  \vspace{0.2cm}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Volet IFC}
+        Constitution et gestion du fonds destiné au paiement des indemnités de
+        fin de carrière dues au départ à la retraite, avec évaluation
+        actuarielle du passif social.
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Volet IFC Plus}
+        Prise en charge de l'indemnité de décès due par l'employeur en cas de
+        décès d'un salarié en activité, sans limitation du nombre de décès
+        dans l'année.
+      \end{block}
+    \end{column}
+  \end{columns}
+  \vspace{0.4cm}
+  \textbf{Assurés :} l'ensemble du personnel salarié, adhésion collective,
+  sans sélection médicale.
+\end{frame}
+
+\begin{frame}{Cadre réglementaire et bases techniques}
+  \vspace{0.2cm}
+  \begin{columns}[T]
+    \begin{column}{0.46\textwidth}
+      \textcolor{orangeC}{\textbf{Cadre juridique}}
+      \begin{itemize}\itemsep0.15cm
+        \item CCNI du Sénégal : barème des indemnités ;
+        \item code du travail et IPRES : retraite à 60 ans ;
+        \item code CIMA (art. 338) : bases techniques ;
+        \item SYSCOHADA révisé / IAS 19.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.50\textwidth}
+      \small
+      \rowcolors{2}{orangeL}{white}
+      \begin{tabular}{lc}
+        \toprule
+        \rowcolor{orangeM} Paramètre & Valeur \\
+        \midrule
+        Table de mortalité & CIMA H \\
+        Taux technique & 3,5\,\% \\
+        Évolution des salaires & 2,0\,\% \\
+        Turn-over & 2,0\,\% \\
+        Licenciement annuel & 1,0\,\% \\
+        Frais de gestion & 2,0\,\% \\
+        \bottomrule
+      \end{tabular}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Barème CCNI des droits}
+  \vspace{0.2cm}
+  Droit exprimé en \% du salaire global mensuel moyen, par année de présence :
+  \vspace{0.3cm}
+  \begin{center}
+    \rowcolors{2}{white}{orangeL}
+    \begin{tabular}{lc}
+      \toprule
+      \rowcolor{orangeM} Tranche d'ancienneté & Droit par année \\
+      \midrule
+      Années 1 à 5 & 20\,\% \\
+      Années 6 à 10 & 30\,\% \\
+      Années 11 à 15 & 40\,\% \\
+      Années 16 à 20 & 50\,\% \\
+      Au-delà de 20 ans & 60\,\% \\
+      \bottomrule
+    \end{tabular}
+  \end{center}
+  \vspace{0.2cm}
+  \small Cumul $B(a)$ obtenu par sommation, avec interpolation linéaire pour
+  les anciennetés non entières.
+\end{frame}
+
+% ================================================================ SECTION 3
+\section{Méthodologie d'évaluation}
+
+\begin{frame}{Méthode prospective}
+  \vspace{0.2cm}
+  Droits projetés au terme, probabilisés, actualisés, puis répartis au prorata
+  de l'ancienneté.
+  \vspace{0.25cm}
+  \begin{block}{Salaire final et droits au terme}
+    \vspace{-0.25cm}
+    $$ S_f = \frac{SA}{12}\,(1+\tau_s)^{\max(60-x,\,0)}
+       \qquad\qquad \text{Droits} = B(N_r)\times S_f $$
+  \end{block}
+  \begin{block}{Valeur actuelle probable des prestations futures}
+    \vspace{-0.25cm}
+    $$ \mathrm{VAP} = \text{Droits}\times\frac{l_{60}}{l_x}\times v^{\,n+1/2} $$
+  \end{block}
+  \small $x$ : âge ; $a$ : ancienneté ; $n$ : durée résiduelle ;
+  $N_r = a + n$ : ancienneté au terme ; $v=(1+i)^{-1}$, $i=3{,}5\,\%$.
+\end{frame}
+
+\begin{frame}{De l'engagement au passif comptable}
+  \vspace{0.2cm}
+  \begin{block}{Dette actuarielle et charge normale}
+    \vspace{-0.25cm}
+    $$ \mathrm{DA} = \mathrm{VAP}\times\frac{a}{N_r}
+       \qquad\qquad \mathrm{CN} = \frac{\mathrm{VAP}}{N_r} $$
+  \end{block}
+  \begin{block}{Passif de l'indemnité de licenciement}
+    \vspace{-0.25cm}
+    $$ \mathrm{Passif\ IL} = \mathrm{IL}\times\tau_\ell\times\frac{1-u^{\,n}}{1-u},
+       \qquad u=\frac{1-\tau_r}{1+i} $$
+  \end{block}
+  \begin{block}{Tarification IFC+ (décès)}
+    \vspace{-0.25cm}
+    $$ \mathrm{PP} = \sum_j C_j\,q_{x_j}
+       \qquad\qquad \mathrm{PC} = \frac{\mathrm{PP}}{1-g} $$
+  \end{block}
+\end{frame}
+
+% ================================================================ SECTION 4
+\section{Application : SENIA S.A.}
+
+\begin{frame}{Le groupe assuré au 31/12/2025}
+  \vspace{0.3cm}
+  \begin{columns}[T]
+    \begin{column}{0.31\textwidth}\stat{50}{salariés, 5 catégories}\end{column}
+    \begin{column}{0.31\textwidth}\stat{344,4 M}{masse salariale (FCFA)}\end{column}
+    \begin{column}{0.31\textwidth}\stat{42,2 ans}{âge moyen}\end{column}
+  \end{columns}
+  \vspace{0.35cm}
+  \begin{columns}[T]
+    \begin{column}{0.31\textwidth}\stat{10,2 ans}{ancienneté moyenne}\end{column}
+    \begin{column}{0.31\textwidth}\stat{17,8 ans}{durée résiduelle moyenne}\end{column}
+    \begin{column}{0.31\textwidth}\stat{60 ans}{âge de départ (IPRES)}\end{column}
+  \end{columns}
+  \vspace{0.35cm}
+  \small Base recueillie auprès de l'entreprise à l'aide de la fiche de
+  collecte du questionnaire (volet D).
+\end{frame}
+
+\begin{frame}{Résultats de l'évaluation IFC}
+  \vspace{0.2cm}
+  \begin{columns}[T]
+    \begin{column}{0.56\textwidth}
+      \rowcolors{2}{white}{orangeL}
+      \begin{tabular}{lr}
+        \toprule
+        \rowcolor{orangeM} Rubrique & FCFA \\
+        \midrule
+        Engagement global & 230\,047\,411 \\
+        Dette actuarielle & 111\,103\,527 \\
+        Charge normale & 8\,223\,109 \\
+        Passif indemnité de licenciement & 7\,831\,464 \\
+        \bottomrule
+      \end{tabular}
+    \end{column}
+    \begin{column}{0.40\textwidth}
+      \stat{230 M FCFA}{d'engagement global}
+      \vspace{0.2cm}
+      {\small La dette actuarielle représente 48\,\% de l'engagement,
+      en cohérence avec le prorata d'ancienneté (10,2 / 28,1 ans).}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Modalités de financement}
+  \vspace{0.2cm}
+  \rowcolors{2}{orangeL}{white}
+  \begin{tabular}{lr}
+    \toprule
+    \rowcolor{orangeM} Option & FCFA \\
+    \midrule
+    Option 1 : prime unique (engagement + passif IL) & 237\,878\,875 \\
+    Option 2 : dette actuarielle à la souscription\ldots & 111\,103\,527 \\
+    \quad\ldots puis charge normale annuelle & 8\,223\,109 \\
+    Option 3 : amortissement de la dette sur 5 ans & 22\,220\,705 \\
+    \quad prime annuelle sur 5 ans & 30\,443\,814 \\
+    \bottomrule
+  \end{tabular}
+  \vspace{0.3cm}
+
+  \small L'option 3 (taux de prime uniforme de 8,84\,\% de la masse salariale)
+  permet la déduction fiscale intégrale de la prime ; réactualisation de
+  l'étude au minimum tous les trois ans.
+\end{frame}
+
+\begin{frame}{Volet IFC+ et sensibilité}
+  \vspace{0.2cm}
+  \begin{columns}[T]
+    \begin{column}{0.44\textwidth}
+      \textcolor{orangeC}{\textbf{Tarification IFC+ (an 1)}}\\[0.15cm]
+      \small
+      \rowcolors{2}{white}{orangeL}
+      \begin{tabular}{lr}
+        \toprule
+        \rowcolor{orangeM} Rubrique & Valeur \\
+        \midrule
+        Capitaux garantis & 161\,949\,480 \\
+        Prime commerciale & 1\,203\,354 \\
+        Taux / capitaux & 0,74\,\% \\
+        Taux / masse salariale & 0,35\,\% \\
+        \bottomrule
+      \end{tabular}
+    \end{column}
+    \begin{column}{0.52\textwidth}
+      \textcolor{orangeC}{\textbf{Sensibilité de l'engagement}}\\[0.15cm]
+      \small
+      \rowcolors{2}{white}{orangeL}
+      \begin{tabular}{lr}
+        \toprule
+        \rowcolor{orangeM} Scénario & Engagement (FCFA) \\
+        \midrule
+        Central ($i=3{,}5\,\%$, $\tau_s=2\,\%$) & 230\,047\,411 \\
+        $i=3{,}0\,\%$ & 249\,478\,037 \\
+        $i=4{,}0\,\%$ & 212\,687\,421 \\
+        $\tau_s=3\,\%$ & 271\,442\,252 \\
+        $\tau_s=1\,\%$ & 196\,416\,468 \\
+        \bottomrule
+      \end{tabular}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ================================================================ SECTION 5
+\section{Le simulateur Excel}
+
+\begin{frame}{Organisation du classeur}
+  \vspace{0.2cm}
+  \rowcolors{2}{orangeL}{white}
+  \begin{tabular}{ll}
+    \toprule
+    \rowcolor{orangeM} Feuille & Contenu \\
+    \midrule
+    Hypotheses & paramètres de calcul modifiables (dates, taux, frais) \\
+    BD & base de données du personnel (50 salariés) \\
+    Baremes & barème CCNI des droits \\
+    Table CIMA H & table de mortalité et commutations \\
+    Calculs & évaluation individuelle : droits, VAP, dette, charge, passif \\
+    Resultats & synthèse : statistiques, résultats IFC, financement, IFC+ \\
+    \bottomrule
+  \end{tabular}
+  \vspace{0.3cm}
+
+  \small Formules vivantes de bout en bout : toute modification d'une hypothèse
+  ou de la base se propage jusqu'à la synthèse ; le simulateur est réutilisable
+  pour toute autre entreprise.
+\end{frame}
+
+\begin{frame}{Conclusion}
+  \vspace{0.3cm}
+  \begin{itemize}\itemsep0.3cm
+    \item L'IFC est le produit vie le plus commercialisé de la place, porté par
+          les obligations conventionnelles et comptables des entreprises ;
+    \item la méthode prospective fournit un passif social complet : engagement
+          global, dette actuarielle, charge normale et passif de licenciement ;
+    \item trois modalités de financement adaptées à la situation de l'entreprise ;
+    \item un simulateur opérationnel, alimenté par le questionnaire de collecte.
+  \end{itemize}
+\end{frame}
+
+{\setbeamertemplate{footline}{}%
+\begin{frame}
+  \begin{tikzpicture}[remember picture,overlay]
+    \fill[orangeC] (current page.south west) rectangle (current page.north east);
+    \node[white,font=\Huge\bfseries] at ([yshift=0.6cm]current page.center)
+      {Merci de votre attention};
+    \node[orangeL,font=\large] at ([yshift=-0.9cm]current page.center)
+      {Groupe 1, Cours d'Assurance Vie, ENSAE ISE 3};
+  \end{tikzpicture}
+\end{frame}}
+
+\end{document}
